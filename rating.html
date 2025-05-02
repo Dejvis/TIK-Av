@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Star Rating System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .star {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .star:hover {
+            transform: scale(1.2);
+        }
+        .star.selected {
+            animation: pulse 0.5s ease;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        .rating-container {
+            perspective: 1000px;
+        }
+        .confirmation {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(20px) rotateX(-30deg);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+        .tooltip {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .star:hover .tooltip {
+            opacity: 1;
+        }
+        .review-btn {
+            animation: fadeIn 0.5s ease-out 0.5s both;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-gray-800">Rate Our Service</h1>
+            <p class="text-gray-600 mt-2">How would you rate your experience with us?</p>
+        </div>
+
+        <div class="rating-container">
+            <div class="flex justify-center space-x-2 mb-4 relative">
+                <div class="star relative" data-rating="1">
+                    <i class="far fa-star text-4xl text-gray-300"></i>
+                    <i class="fas fa-star text-4xl text-yellow-400 absolute top-0 left-0 opacity-0"></i>
+                    <span class="tooltip">Poor</span>
+                </div>
+                <div class="star relative" data-rating="2">
+                    <i class="far fa-star text-4xl text-gray-300"></i>
+                    <i class="fas fa-star text-4xl text-yellow-400 absolute top-0 left-0 opacity-0"></i>
+                    <span class="tooltip">Fair</span>
+                </div>
+                <div class="star relative" data-rating="3">
+                    <i class="far fa-star text-4xl text-gray-300"></i>
+                    <i class="fas fa-star text-4xl text-yellow-400 absolute top-0 left-0 opacity-0"></i>
+                    <span class="tooltip">Good</span>
+                </div>
+                <div class="star relative" data-rating="4">
+                    <i class="far fa-star text-4xl text-gray-300"></i>
+                    <i class="fas fa-star text-4xl text-yellow-400 absolute top-0 left-0 opacity-0"></i>
+                    <span class="tooltip">Very Good</span>
+                </div>
+                <div class="star relative" data-rating="5">
+                    <i class="far fa-star text-4xl text-gray-300"></i>
+                    <i class="fas fa-star text-4xl text-yellow-400 absolute top-0 left-0 opacity-0"></i>
+                    <span class="tooltip">Excellent</span>
+                </div>
+            </div>
+
+            <div class="text-center text-gray-500 text-sm mb-6">
+                <span id="rating-text">Select a rating</span>
+            </div>
+
+            <div class="hidden" id="feedback-section">
+                <textarea 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400" 
+                    placeholder="Optional: Tell us more about your experience..."
+                    rows="3"></textarea>
+            </div>
+
+            <div class="mt-6 flex justify-center">
+                <button 
+                    id="submit-btn"
+                    class="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg font-medium cursor-not-allowed opacity-50 transition-all duration-300"
+                    disabled>
+                    Submit Rating
+                </button>
+            </div>
+        </div>
+
+        <div id="confirmation" class="hidden confirmation text-center p-4 bg-green-50 rounded-lg border border-green-200">
+            <i class="fas fa-check-circle text-green-500 text-4xl mb-2"></i>
+            <h3 class="text-xl font-semibold text-green-800">Thank You!</h3>
+            <p class="text-green-600">Your <span id="submitted-rating" class="font-bold"></span> star rating has been submitted.</p>
+            <p class="text-green-600 mt-2">We appreciate your feedback!</p>
+            
+            <div class="mt-4 review-btn hidden" id="review-btn-container">
+                <button 
+                    id="review-btn"
+                    class="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-all duration-300">
+                    <i class="fas fa-pen mr-2"></i> <a href="index.html">Leave Room</a>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.star');
+            const ratingText = document.getElementById('rating-text');
+            const feedbackSection = document.getElementById('feedback-section');
+            const submitBtn = document.getElementById('submit-btn');
+            const confirmation = document.getElementById('confirmation');
+            const submittedRating = document.getElementById('submitted-rating');
+            const reviewBtnContainer = document.getElementById('review-btn-container');
+            const reviewBtn = document.getElementById('review-btn');
+            
+            let selectedRating = 0;
+            let isSubmitted = false;
+
+            // Star hover effect
+            stars.forEach(star => {
+                const rating = parseInt(star.dataset.rating);
+                const farStar = star.querySelector('.far');
+                const fasStar = star.querySelector('.fas');
+                
+                star.addEventListener('mouseenter', () => {
+                    if (isSubmitted) return;
+                    
+                    // Highlight stars up to the hovered one
+                    stars.forEach(s => {
+                        const sRating = parseInt(s.dataset.rating);
+                        const sFar = s.querySelector('.far');
+                        const sFas = s.querySelector('.fas');
+                        
+                        if (sRating <= rating) {
+                            sFar.style.opacity = '0';
+                            sFas.style.opacity = '1';
+                        } else {
+                            sFar.style.opacity = '1';
+                            sFas.style.opacity = '0';
+                        }
+                    });
+                    
+                    // Update rating text
+                    updateRatingText(rating);
+                });
+                
+                star.addEventListener('click', () => {
+                    if (isSubmitted) return;
+                    
+                    selectedRating = rating;
+                    star.classList.add('selected');
+                    
+                    setTimeout(() => {
+                        star.classList.remove('selected');
+                    }, 500);
+                    
+                    // Update all stars to reflect selection
+                    stars.forEach(s => {
+                        const sRating = parseInt(s.dataset.rating);
+                        const sFar = s.querySelector('.far');
+                        const sFas = s.querySelector('.fas');
+                        
+                        if (sRating <= selectedRating) {
+                            sFar.style.opacity = '0';
+                            sFas.style.opacity = '1';
+                        } else {
+                            sFar.style.opacity = '1';
+                            sFas.style.opacity = '0';
+                        }
+                    });
+                    
+                    // Update rating text
+                    updateRatingText(selectedRating);
+                    
+                    // Show feedback section
+                    feedbackSection.classList.remove('hidden');
+                    
+                    // Enable submit button
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('bg-gray-300', 'cursor-not-allowed', 'opacity-50');
+                    submitBtn.classList.add('bg-yellow-400', 'hover:bg-yellow-500', 'cursor-pointer', 'opacity-100');
+                });
+            });
+            
+            // Submit button click
+            submitBtn.addEventListener('click', () => {
+                if (selectedRating === 0 || isSubmitted) return;
+                
+                isSubmitted = true;
+                
+                // Hide rating container
+                document.querySelector('.rating-container').classList.add('hidden');
+                
+                // Show confirmation
+                submittedRating.textContent = selectedRating;
+                confirmation.classList.remove('hidden');
+                
+                // Show review button after a delay
+                setTimeout(() => {
+                    reviewBtnContainer.classList.remove('hidden');
+                }, 500);
+                
+                // In a real app, you would send the rating to your server here
+                console.log(`Submitted rating: ${selectedRating}`);
+            });
+            
+            // Review button click
+            reviewBtn.addEventListener('click', () => {
+                alert('Redirecting to review page...');
+                // In a real app, you would redirect to a review page or open a review modal
+            });
+            
+            function updateRatingText(rating) {
+                const texts = [
+                    '',
+                    'Poor - Needs significant improvement',
+                    'Fair - Could be better',
+                    'Good - Met expectations',
+                    'Very Good - Above average',
+                    'Excellent - Outstanding experience'
+                ];
+                
+                ratingText.textContent = texts[rating];
+                ratingText.className = rating >= 4 ? 'text-center text-green-500 text-sm mb-6 font-medium' : 
+                                      rating >= 3 ? 'text-center text-blue-500 text-sm mb-6 font-medium' : 
+                                      'text-center text-orange-500 text-sm mb-6 font-medium';
+            }
+        });
+    </script>
+</body>
+</html>
