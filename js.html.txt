@@ -1,0 +1,693 @@
+JS PAGE
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Learning Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        js: {
+                            yellow: '#F7DF1E',
+                            dark: '#323330'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .code-block {
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            tab-size: 2;
+        }
+        .playground-output {
+            min-height: 100px;
+            border: 1px dashed #ccc;
+        }
+        .dark .playground-output {
+            border-color: #555;
+        }
+        .slide {
+            display: none;
+        }
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .question-option {
+            transition: all 0.2s;
+        }
+        .question-option:hover {
+            transform: translateY(-2px);
+        }
+        .correct {
+            background-color: #4CAF50 !important;
+            color: white !important;
+        }
+        .incorrect {
+            background-color: #F44336 !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-200">
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8">
+            <div class="flex items-center">
+                <i class="fab fa-js-square text-4xl mr-3 text-js-yellow"></i>
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-js-yellow to-js-dark bg-clip-text text-transparent">
+                    JavaScript Learning Course
+                </h1>
+            </div>
+            <button id="themeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:inline"></i>
+            </button>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="mb-8">
+            <div class="flex justify-between mb-2">
+                <span id="progressText" class="font-medium">Lesson 1 of 8</span>
+                <span id="progressPercent" class="font-medium">12%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                <div id="progressBar" class="bg-js-yellow h-2.5 rounded-full" style="width: 12%"></div>
+            </div>
+        </div>
+
+        <!-- Course Content -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
+            <!-- Slide 1: Introduction -->
+            <div class="slide active" id="slide1">
+                <h2 class="text-2xl font-bold mb-4 text-js-yellow">Welcome to JavaScript!</h2>
+                <div class="mb-6">
+                    <p class="mb-4">JavaScript is the programming language of the web. It allows you to create interactive websites, build web applications, and much more.</p>
+                    <p class="mb-4">In this course, you'll learn JavaScript fundamentals with interactive examples and exercises.</p>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                        <h3 class="font-semibold mb-2">Did you know?</h3>
+                        <p>JavaScript was created in just 10 days in 1995 by Brendan Eich while working at Netscape.</p>
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <button onclick="nextSlide()" class="bg-js-yellow hover:bg-yellow-500 text-js-dark font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 2: Variables -->
+            <div class="slide" id="slide2">
+                <h2 class="text-2xl font-bold mb-4 text-js-yellow">Variables</h2>
+                <div class="mb-6">
+                    <p class="mb-4">Variables are containers for storing data values. In JavaScript, you can declare variables using <code>let</code>, <code>const</code>, or <code>var</code>.</p>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code>// Variable declaration
+let message = "Hello, World!";
+const PI = 3.14159;
+var count = 42;
+
+// Reassigning values
+message = "Welcome to JavaScript";
+count = 100;
+
+// PI = 3.14; // This would cause an error (const can't be reassigned)</code></pre>
+                    </div>
+                    <p class="mb-4">JavaScript is dynamically typed, meaning variables can hold values of any type:</p>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code>let x = 5;       // x is a number
+x = "Hello";    // x is now a string
+x = true;       // x is now a boolean
+console.log(x); // Output: true</code></pre>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-js-yellow hover:bg-yellow-500 text-js-dark font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 3: Data Types -->
+            <div class="slide" id="slide3">
+                <h2 class="text-2xl font-bold mb-4 text-js-yellow">Data Types</h2>
+                <div class="mb-6">
+                    <p class="mb-4">JavaScript has several primitive data types:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Primitive Types:</h3>
+                            <p><code>string</code>, <code>number</code>, <code>boolean</code>, <code>null</code>, <code>undefined</code>, <code>symbol</code>, <code>bigint</code></p>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Object Types:</h3>
+                            <p><code>object</code>, <code>array</code>, <code>function</code>, <code>date</code></p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code>// Examples of different data types
+const name = "Alice";             // string
+const age = 25;                   // number
+const isStudent = true;           // boolean
+const nothing = null;             // null
+let notDefined;                   // undefined
+const fruits = ["apple", "banana"]; // array
+const person = {name: "Bob", age: 30}; // object</code></pre>
+                    </div>
+                    <p class="mb-4">You can check the type of a value using the <code>typeof</code> operator:</p>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code>console.log(typeof "hello");    // "string"
+console.log(typeof 42);         // "number"
+console.log(typeof true);       // "boolean"
+console.log(typeof undefined);  // "undefined"
+console.log(typeof null);       // "object" (this is a known bug)
+console.log(typeof [1, 2, 3]);  // "object"
+console.log(typeof {a: 1});     // "object"
+console.log(typeof function(){});// "function"</code></pre>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-js-yellow hover:bg-yellow-500 text-js-dark font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 4: Control Flow -->
+            <div class="slide" id="slide4">
+                <h2 class="text-2xl font-bold mb-4 text-js-yellow">Control Flow</h2>
+                <div class="mb-6">
+                    <p class="mb-4">JavaScript uses curly braces <code>{}</code> to define blocks of code.</p>
+                    
+                    <h3 class="text-xl font-semibold mt-4 mb-2">If Statements</h3>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code>const age = 18;
+if (age >= 18) {
+    console.log("You are an adult");
+} else if (age >= 13) {
+    console.log("You are a teenager");
+} else {
+    console.log("You are a child");
+}</code></pre>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold mt-4 mb-2">Loops</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">For Loop</h4>
+                            <pre class="code-block text-sm"><code>const fruits = ["apple", "banana", "cherry"];
+for (let i = 0; i < fruits.length; i++) {
+    console.log(fruits[i]);
+}
+
+// For...of loop (ES6)
+for (const fruit of fruits) {
+    console.log(fruit);
+}</code></pre>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">While Loop</h4>
+                            <pre class="code-block text-sm"><code>let count = 0;
+while (count < 5) {
+    console.log(count);
+    count++;
+}
+
+// Do...while loop
+let x = 0;
+do {
+    console.log(x);
+    x++;
+} while (x < 5);</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-js-yellow hover:bg-yellow-500 text-js-dark font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 5: Functions -->
+            <div class="slide" id="slide5">
+                <h2 class="text-2xl font-bold mb-4 text-js-yellow">Functions</h2>
+                <div class="mb-6">
+                    <p class="mb-4">Functions are reusable blocks of code that perform a specific task.</p>
+                    
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code>// Function declaration
+function greet(name) {
+    return `Hello, ${name}!`;
+}
+
+// Function expression
+const greet = function(name) {
+    return `Hello, ${name}!`;
+};
+
+// Arrow function (ES6)
+const greet = (name) => `Hello, ${name}!`;
+
+// Calling functions
+console.log(greet("Alice")); // Output: Hello, Alice!</code></pre>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold mt-4 mb-2">Default Parameters</h3>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code>function greet(name = "World") {
+    return `Hello, ${name}!`;
+}
+
+console.log(greet());      // Output: Hello, World!
+console.log(greet("Bob")); // Output: Hello, Bob!</code></pre>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold mt-4 mb-2">Higher-Order Functions</h3>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code>// Function that takes another function as argument
+function applyOperation(x, y, operation) {
+    return operation(x, y);
+}
+
+const sum = (a, b) => a + b;
+const multiply = (a, b) => a * b;
+
+console.log(applyOperation(5, 3, sum));      // 8
+console.log(applyOperation(5, 3, multiply)); // 15</code></pre>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-js-yellow hover:bg-yellow-500 text-js-dark font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 6: Quiz -->
+            <div class="slide" id="slide6">
+                <h2 class="text-2xl font-bold mb-4 text-js-yellow">Quick Quiz</h2>
+                <div class="mb-6">
+                    <div id="quizQuestion1" class="mb-8">
+                        <h3 class="text-lg font-semibold mb-4">1. What is the output of the following code?</h3>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                            <pre class="code-block text-sm"><code>console.log(typeof null);</code></pre>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                A) "null"
+                            </button>
+                            <button onclick="checkAnswer(this, true)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                B) "object"
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                C) "undefined"
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                D) "number"
+                            </button>
+                        </div>
+                        <div id="quizFeedback1" class="mt-3 hidden">
+                            <div class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 p-3 rounded-lg">
+                                <strong>Correct!</strong> This is a known quirk in JavaScript - <code>typeof null</code> returns "object".
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="quizQuestion2" class="mb-8">
+                        <h3 class="text-lg font-semibold mb-4">2. Which of these is NOT a way to declare a variable in JavaScript?</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                A) let
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                B) const
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                C) var
+                            </button>
+                            <button onclick="checkAnswer(this, true)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                D) def
+                            </button>
+                        </div>
+                        <div id="quizFeedback2" class="mt-3 hidden">
+                            <div class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 p-3 rounded-lg">
+                                <strong>Correct!</strong> <code>def</code> is used in Python, not JavaScript.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="quizQuestion3" class="mb-8">
+                        <h3 class="text-lg font-semibold mb-4">3. What is the correct syntax for an arrow function that takes two parameters and returns their sum?</h3>
+                        <div class="grid grid-cols-1 gap-3">
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                A) function(a, b) { return a + b; }
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                B) (a, b) => { a + b }
+                            </button>
+                            <button onclick="checkAnswer(this, true)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                C) (a, b) => a + b
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                D) def sum(a, b): return a + b
+                            </button>
+                        </div>
+                        <div id="quizFeedback3" class="mt-3 hidden">
+                            <div class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 p-3 rounded-lg">
+                                <strong>Correct!</strong> Arrow functions can have an implicit return when the body is a single expression.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-js-yellow hover:bg-yellow-500 text-js-dark font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 7: Playground -->
+            <div class="slide" id="slide7">
+                <h2 class="text-2xl font-bold mb-4 text-js-yellow">JavaScript Playground</h2>
+                <div class="mb-6">
+                    <p class="mb-4">Try writing your own JavaScript code below and see the results!</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-semibold mb-2">Editor</h3>
+                            <textarea id="playgroundCode" class="w-full h-64 bg-gray-100 dark:bg-gray-700 p-4 rounded-lg font-mono text-sm" spellcheck="false">// Write your JavaScript code here
+console.log("Hello, JavaScript!");
+
+// Example: Calculate the sum of numbers from 1 to 10
+let total = 0;
+for (let i = 1; i <= 10; i++) {
+    total += i;
+}
+console.log("Sum from 1 to 10 is:", total);</textarea>
+                            <button onclick="runCode()" class="mt-3 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition w-full">
+                                <i class="fas fa-play mr-2"></i> Run Code
+                            </button>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Output</h3>
+                            <div id="playgroundOutput" class="playground-output bg-white dark:bg-gray-900 p-4 rounded-lg font-mono text-sm overflow-auto"></div>
+                            <div class="mt-3">
+                                <h3 class="font-semibold mb-2">Try these examples:</h3>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button onclick="loadExample(1)" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                        Simple Calculator
+                                    </button>
+                                    <button onclick="loadExample(2)" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                        Array Methods
+                                    </button>
+                                    <button onclick="loadExample(3)" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                        FizzBuzz
+                                    </button>
+                                    <button onclick="loadExample(4)" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                        Fibonacci
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-js-yellow hover:bg-yellow-500 text-js-dark font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 8: Final Slide -->
+            <div class="slide" id="slide8">
+                <h2 class="text-2xl font-bold mb-4 text-js-yellow">Congratulations!</h2>
+                <div class="mb-6 text-center">
+                    <div class="bg-green-100 dark:bg-green-900 p-6 rounded-lg mb-6">
+                        <i class="fas fa-trophy text-5xl text-yellow-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">You've completed the JavaScript Basics Course!</h3>
+                        <p class="mb-4">You've learned about variables, data types, control flow, functions, and more.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Next Steps</h3>
+                            <ul class="list-disc pl-5">
+                                <li>DOM Manipulation</li>
+                                <li>Async JavaScript</li>
+                                <li>ES6+ Features</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Resources</h3>
+                            <ul class="list-disc pl-5">
+                                <li>MDN JavaScript Docs</li>
+                                <li>JavaScript.info</li>
+                                <li>Eloquent JavaScript</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Community</h3>
+                            <ul class="list-disc pl-5">
+                                <li>JavaScript Discord</li>
+                                <li>Stack Overflow</li>
+                                <li>Local Meetups</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <p class="mb-6">Keep coding and have fun with JavaScript!</p>
+                    
+                    <button id="leaveRoomBtn" class="bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-6 rounded-lg transition">
+                        <i class="fas fa-door-open mr-2"></i> <a href="index.html">Leave Room</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+        });
+
+        // Set initial theme based on preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+
+        // Slide navigation
+        let currentSlide = 1;
+        const totalSlides = 8;
+
+        function updateProgress() {
+            const progressPercent = Math.round((currentSlide / totalSlides) * 100);
+            document.getElementById('progressPercent').textContent = `${progressPercent}%`;
+            document.getElementById('progressBar').style.width = `${progressPercent}%`;
+            document.getElementById('progressText').textContent = `Lesson ${currentSlide} of ${totalSlides}`;
+        }
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => slide.classList.remove('active'));
+            document.getElementById(`slide${n}`).classList.add('active');
+            currentSlide = n;
+            updateProgress();
+            
+            // Scroll to top when changing slides
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Quiz functionality
+        function checkAnswer(button, isCorrect) {
+            const questionDiv = button.closest('[id^="quizQuestion"]');
+            const feedbackId = questionDiv.id.replace("Question", "Feedback");
+            const feedbackDiv = document.getElementById(feedbackId);
+            
+            // Reset all buttons in this question
+            const allButtons = questionDiv.querySelectorAll('.question-option');
+            allButtons.forEach(btn => {
+                btn.classList.remove('correct', 'incorrect');
+            });
+            
+            // Mark the clicked button
+            if (isCorrect) {
+                button.classList.add('correct');
+                feedbackDiv.classList.remove('hidden');
+            } else {
+                button.classList.add('incorrect');
+                
+                // Find and show the correct answer
+                const correctButton = [...allButtons].find(btn => btn.classList.contains('question-option') && btn !== button);
+                if (correctButton) {
+                    setTimeout(() => {
+                        correctButton.classList.add('correct');
+                        feedbackDiv.classList.remove('hidden');
+                    }, 500);
+                }
+            }
+        }
+
+        // Playground functionality
+        function runCode() {
+            const code = document.getElementById('playgroundCode').value;
+            const outputDiv = document.getElementById('playgroundOutput');
+            
+            // Clear previous output
+            outputDiv.innerHTML = '';
+            
+            try {
+                // Create a function from the code and execute it
+                const func = new Function(code);
+                
+                // Override console.log to capture output
+                const oldLog = console.log;
+                console.log = function(...args) {
+                    oldLog.apply(console, args); // Keep original logging
+                    args.forEach(arg => {
+                        const line = document.createElement('div');
+                        line.textContent = String(arg);
+                        outputDiv.appendChild(line);
+                    });
+                };
+                
+                // Execute the code
+                func();
+                
+                // Restore original console.log
+                console.log = oldLog;
+                
+            } catch (error) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'text-red-500';
+                errorDiv.textContent = error.message;
+                outputDiv.appendChild(errorDiv);
+            }
+        }
+
+        function loadExample(exampleNum) {
+            const examples = [
+                `// Simple Calculator
+const num1 = parseFloat(prompt("Enter first number:"));
+const num2 = parseFloat(prompt("Enter second number:"));
+const operator = prompt("Enter operator (+, -, *, /):");
+
+let result;
+switch(operator) {
+    case '+':
+        result = num1 + num2;
+        break;
+    case '-':
+        result = num1 - num2;
+        break;
+    case '*':
+        result = num1 * num2;
+        break;
+    case '/':
+        result = num1 / num2;
+        break;
+    default:
+        result = "Invalid operator";
+}
+
+console.log("Result:", result);`,
+
+                `// Array Methods
+const numbers = [1, 2, 3, 4, 5];
+
+// Map - transform each element
+const squared = numbers.map(n => n * n);
+console.log("Squared:", squared);
+
+// Filter - select elements that pass a test
+const evens = numbers.filter(n => n % 2 === 0);
+console.log("Even numbers:", evens);
+
+// Reduce - combine elements into a single value
+const sum = numbers.reduce((total, num) => total + num, 0);
+console.log("Sum:", sum);`,
+
+                `// FizzBuzz
+for (let i = 1; i <= 20; i++) {
+    let output = '';
+    if (i % 3 === 0) output += 'Fizz';
+    if (i % 5 === 0) output += 'Buzz';
+    console.log(output || i);
+}`,
+
+                `// Fibonacci Sequence
+function fibonacci(n) {
+    const sequence = [0, 1];
+    for (let i = 2; i < n; i++) {
+        sequence.push(sequence[i-1] + sequence[i-2]);
+    }
+    return sequence;
+}
+
+console.log("First 10 Fibonacci numbers:", fibonacci(10));`
+            ];
+            
+            document.getElementById('playgroundCode').value = examples[exampleNum - 1];
+        }
+
+        // Leave room button
+        document.getElementById('leaveRoomBtn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to leave the course?')) {
+                alert('Thank you for taking the JavaScript course! Come back anytime to continue learning.');
+                // In a real app, you might redirect to another page
+                // window.location.href = '/';
+            }
+        });
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>
+

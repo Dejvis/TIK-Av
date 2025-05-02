@@ -1,0 +1,174 @@
+LOG-IN PAGE
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .login-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .login-card {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .input-field {
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+        }
+        .btn-login {
+            background: linear-gradient(to right, #7c3aed, #a855f7);
+            transition: all 0.3s ease;
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(124, 58, 237, 0.2);
+        }
+        .social-btn {
+            transition: all 0.3s ease;
+        }
+        .social-btn:hover {
+            transform: translateY(-2px);
+        }
+        .dark .login-container {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+        .dark .login-card {
+            background-color: rgba(30, 41, 59, 0.8);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .dark .input-field {
+            background-color: rgba(15, 23, 42, 0.7);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+    </style>
+</head>
+<body class="login-container min-h-screen flex items-center justify-center p-4 dark:bg-gray-900">
+    <div class="login-card bg-white rounded-2xl p-8 max-w-md w-full dark:bg-gray-800">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Welcome back</h1>
+                <p class="text-gray-600 dark:text-gray-300">Sign in to your account</p>
+            </div>
+            <button id="theme-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:block"></i>
+            </button>
+        </div>
+
+        <form class="space-y-6">
+            <div class="space-y-2">
+                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email address</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-envelope text-gray-400"></i>
+                    </div>
+                    <input id="email" name="email" type="email" autocomplete="email" required 
+                           class="input-field pl-10 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-purple-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white" 
+                           placeholder="you@example.com">
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <div class="flex justify-between items-center">
+                    <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+                    <a href="#" class="text-sm text-purple-600 hover:text-purple-500 dark:text-purple-400">Forgot password?</a>
+                </div>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-lock text-gray-400"></i>
+                    </div>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required 
+                           class="input-field pl-10 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-purple-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white" 
+                           placeholder="••••••••">
+                    <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-300">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex items-center">
+                <input id="remember-me" name="remember-me" type="checkbox" 
+                       class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600">
+                <label for="remember-me" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">Remember me</label>
+            </div>
+
+            <button type="submit" class="btn-login w-full py-3 px-4 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                <a href="index.html">Log-In</a>
+            </button>
+        </form>
+
+        <div class="mt-6">
+            <div class="relative">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-white text-gray-500 dark:bg-gray-800 dark:text-gray-300">Or continue with</span>
+                </div>
+            </div>
+
+            <div class="mt-6 grid grid-cols-3 gap-3">
+                <a href="#" class="social-btn flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+                    <i class="fab fa-google text-red-500 mr-2"></i>
+                </a>
+                <a href="#" class="social-btn flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+                    <i class="fab fa-github text-gray-800 dark:text-gray-200 mr-2"></i>
+                </a>
+                <a href="#" class="social-btn flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+                    <i class="fab fa-twitter text-blue-400 mr-2"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-6 text-center">
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+                Don't have an account? 
+                <a href="#" class="font-medium text-purple-600 hover:text-purple-500 dark:text-purple-400">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Toggle dark/light theme
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            
+            // Update icon
+            const moonIcon = themeToggle.querySelector('.fa-moon');
+            const sunIcon = themeToggle.querySelector('.fa-sun');
+            moonIcon.classList.toggle('hidden');
+            sunIcon.classList.toggle('hidden');
+            
+            // Save preference to localStorage
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('darkMode', isDark);
+        });
+
+        // Check for saved theme preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+            themeToggle.querySelector('.fa-moon').classList.add('hidden');
+            themeToggle.querySelector('.fa-sun').classList.remove('hidden');
+        }
+
+        // Toggle password visibility
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.querySelector('[type="button"]');
+        togglePassword.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            togglePassword.innerHTML = isPassword ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
+        });
+    </script>
+</body>
+</html>

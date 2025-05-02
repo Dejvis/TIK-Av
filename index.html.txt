@@ -1,0 +1,1526 @@
+INDEX.HTML=
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMaster - Advanced Programming Courses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .login-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .login-card {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .input-field {
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+        }
+        .btn-login {
+            background: linear-gradient(to right, #7c3aed, #a855f7);
+            transition: all 0.3s ease;
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(124, 58, 237, 0.2);
+        }
+        .social-btn {
+            transition: all 0.3s ease;
+        }
+        .social-btn:hover {
+            transform: translateY(-2px);
+        }
+        .dark .login-container {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+        .dark .login-card {
+            background-color: rgba(30, 41, 59, 0.8);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .dark .input-field {
+            background-color: rgba(15, 23, 42, 0.7);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+        }
+        .code-editor {
+            background-color: #1e293b;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .tab-active {
+            border-bottom: 3px solid #a777e3;
+            color: #a777e3;
+        }
+        .syntax-highlight {
+            color: #f8f8f2;
+        }
+        .keyword {
+            color: #ff79c6;
+        }
+        .string {
+            color: #f1fa8c;
+        }
+        .comment {
+            color: #6272a4;
+        }
+        .function {
+            color: #50fa7b;
+        }
+        .type {
+            color: #8be9fd;
+        }
+        .terminal-line::before {
+            content: "> ";
+            color: #50fa7b;
+        }
+        .modal {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .modal-hidden {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+        }
+        .star-rating .star {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .star-rating .star:hover {
+            color: #f59e0b;
+        }
+        .challenge-complete {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .dark-gradient-button {
+            position: relative;
+            background: linear-gradient(45deg, 
+                #8B0000,  /* dark red */
+                #FF4500,  /* orange red */
+                #9932CC,  /* dark orchid */
+                #00008B,  /* dark blue */
+                #4B0082   /* indigo */
+            );
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        
+        .dark-gradient-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            filter: blur(8px);
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        .dark-gradient-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .dark-gradient-button:hover span {
+            display: inline-block;
+            animation: textPulse 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes textPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    
+    <!-- Navigation -->
+    <nav class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-code text-2xl"></i>
+                    <span class="font-bold text-xl">Learn to code</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="hover:text-gray-200" id="courses-link">Courses</a>
+                    <a href="#" class="hover:text-gray-200" id="practice-link">Practice</a>
+                    <a href="#" class="hover:text-gray-200">Projects</a>
+                    <a href="#" class="hover:text-gray-200">Community</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="px-4 py-2 rounded-full bg-white text-purple-600 font-semibold hover:bg-gray-100" id="login-btn"><a href="login.html"> Sign In</a></button>
+                    <button class="md:hidden">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login/Signup Modal -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 modal modal-hidden" id="auth-modal">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold" id="auth-modal-title">Sign In</h3>
+                    <button class="text-gray-500 hover:text-gray-700" id="close-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="flex border-b mb-6">
+                    <button class="px-4 py-2 font-medium border-b-2 border-purple-600 text-purple-600" id="signin-tab">Sign In</button>
+                    <button class="px-4 py-2 font-medium text-gray-500" id="signup-tab">Sign Up</button>
+                </div>
+                
+                <form id="signin-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2" for="login-email">Email</label>
+                        <input type="email" id="login-email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2" for="login-password">Password</label>
+                        <input type="password" id="login-password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <button type="submit" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition">Sign In</button>
+                </form>
+                
+                <form id="signup-form" class="hidden">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2" for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2" for="signup-email">Email</label>
+                        <input type="email" id="signup-email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2" for="signup-password">Password</label>
+                        <input type="password" id="signup-password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <button type="submit" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition">Create Account</button>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-gray-600">Or sign in with</p>
+                    <div class="flex justify-center space-x-4 mt-4">
+                        <button class="p-2 rounded-full border hover:bg-gray-100">
+                            <i class="fab fa-google text-red-500"></i>
+                        </button>
+                        <button class="p-2 rounded-full border hover:bg-gray-100">
+                            <i class="fab fa-github text-gray-800"></i>
+                        </button>
+                        <button class="p-2 rounded-full border hover:bg-gray-100">
+                            <i class="fab fa-twitter text-blue-400"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Content (Hidden by default) -->
+    <div class="hidden" id="course-content">
+        <div class="container mx-auto px-6 py-12">
+            <button class="mb-6 flex items-center text-purple-600 hover:text-purple-800" id="back-to-courses">
+                <i class="fas fa-arrow-left mr-2"></i> Back to all courses
+            </button>
+            
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Course Sidebar -->
+                <div class="lg:w-1/4 bg-white rounded-lg shadow p-6 h-fit">
+                    <div class="flex items-center mb-6">
+                        <div id="course-icon" class="w-12 h-12 rounded-full flex items-center justify-center text-white text-2xl mr-4"></div>
+                        <h2 class="text-xl font-bold" id="course-title">Course Title</h2>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-medium">Progress</span>
+                            <span class="text-sm text-gray-500" id="progress-percent">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-purple-600 h-2.5 rounded-full" id="progress-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold mb-3">Course Content</h3>
+                        <div class="space-y-2" id="course-modules">
+                            <!-- Modules will be added here by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-bold mb-3">Rate this course</h3>
+                        <div class="star-rating flex space-x-1 mb-2">
+                            <i class="fas fa-star star text-gray-300" data-rating="1"></i>
+                            <i class="fas fa-star star text-gray-300" data-rating="2"></i>
+                            <i class="fas fa-star star text-gray-300" data-rating="3"></i>
+                            <i class="fas fa-star star text-gray-300" data-rating="4"></i>
+                            <i class="fas fa-star star text-gray-300" data-rating="5"></i>
+                        </div>
+                        <p class="text-sm text-gray-500">Click to rate</p>
+                    </div>
+                </div>
+                
+                <!-- Course Main Content -->
+                <div class="lg:w-3/4">
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <div class="p-6 border-b">
+                            <h2 class="text-2xl font-bold" id="current-module-title">Module Title</h2>
+                            <p class="text-gray-600" id="current-module-description">Module description goes here</p>
+                        </div>
+                        
+                        <div class="p-6" id="module-content">
+                            <!-- Content will be loaded here -->
+                        </div>
+                        
+                        <div class="p-6 border-t flex justify-between">
+                            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 disabled:opacity-50" id="prev-module" disabled>
+                                <i class="fas fa-arrow-left mr-2"></i> Previous
+                            </button>
+                            <button class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700" id="next-module">
+                                Next <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Challenges Section -->
+                    <div class="mt-8 bg-white rounded-lg shadow overflow-hidden">
+                        <div class="p-6 border-b">
+                            <h2 class="text-2xl font-bold">Practice Challenges</h2>
+                            <p class="text-gray-600">Test your knowledge with these hands-on exercises</p>
+                        </div>
+                        
+                        <div class="p-6 space-y-6" id="challenges-container">
+                            <!-- Challenges will be added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content (Visible by default) -->
+    <div id="main-content">
+        <!-- Hero Section -->
+        <section class="gradient-bg text-white py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Master Modern Web Development</h1>
+                <p class="text-xl md:text-2xl mb-12 max-w-3xl mx-auto">Learn Python, JavaScript, and CSS through interactive coding exercises, real-world projects, and expert mentorship.</p>
+                <div class="flex flex-col md:flex-row justify-center gap-4">
+                    <button class="px-8 py-4 rounded-full bg-white text-purple-600 font-bold text-lg hover:bg-gray-100 transition">Start Learning Free</button>
+                    <button class="px-8 py-4 rounded-full border-2 border-white text-white font-bold text-lg hover:bg-white hover:bg-opacity-10 transition">Explore Courses</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Course Tabs -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="flex border-b border-gray-200 mb-12">
+                    <button class="tab-active px-6 py-3 font-semibold text-lg">All Courses</button>
+                    <button class="px-6 py-3 font-semibold text-lg text-gray-500 hover:text-purple-600" data-course="python">Python</button>
+                    <button class="px-6 py-3 font-semibold text-lg text-gray-500 hover:text-purple-600" data-course="javascript">JavaScript</button>
+                    <button class="px-6 py-3 font-semibold text-lg text-gray-500 hover:text-purple-600" data-course="css">CSS</button>
+                   <a href="payment.html"> <button class="px-6 py-3 font-semibold text-lg text-gray-500 hover:text-purple-600">Advanced</button></a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Python Course -->
+                    <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden transition duration-300" data-course="python">
+                        <div class="h-48 bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center">
+                            <i class="fab fa-python text-8xl text-white opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-semibold text-indigo-600">PYTHON</span>
+                                <span class="text-sm text-gray-500">Advanced</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Python Mastery: From Basics to AI</h3>
+                            <p class="text-gray-600 mb-4">Learn Python fundamentals, data science, machine learning, and web development with Flask/Django.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="star-rating flex">
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                    </div>
+                                    <span class="text-gray-500 ml-1">(1.2k)</span>
+                                </div>
+                                <span class="text-sm text-gray-500">32 hours</span>
+                            <button><a href="python.html">Enroll</a></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- JavaScript Course -->
+                    <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden transition duration-300" data-course="javascript">
+                        <div class="h-48 bg-gradient-to-r from-yellow-400 to-yellow-600 flex items-center justify-center">
+                            <i class="fab fa-js-square text-8xl text-white opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-semibold text-yellow-600">JAVASCRIPT</span>
+                                <span class="text-sm text-gray-500">Advanced</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Modern JavaScript: ES6+ and Beyond</h3>
+                            <p class="text-gray-600 mb-4">Master modern JavaScript features, frameworks (React, Vue), and advanced patterns like closures and promises.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="star-rating flex">
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star-half-alt text-yellow-400"></i>
+                                    </div>
+                                    <span class="text-gray-500 ml-1">(980)</span>
+                                </div>
+                                <span class="text-sm text-gray-500">28 hours</span>
+                                <button><a href="js.html">Enroll</a></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CSS Course -->
+                    <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden transition duration-300" data-course="css">
+                        <div class="h-48 bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center">
+                            <i class="fab fa-css3-alt text-8xl text-white opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-semibold text-green-600">CSS</span>
+                                <span class="text-sm text-gray-500">Advanced</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">CSS Artistry: Animations & Layouts</h3>
+                            <p class="text-gray-600 mb-4">Create stunning animations, master CSS Grid/Flexbox, and learn advanced techniques like custom properties.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="star-rating flex">
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                    </div>
+                                    <span class="text-gray-500 ml-1">(750)</span>
+                                </div>
+                                <span class="text-sm text-gray-500">20 hours</span>
+                                <button><a href="css.html">Enroll</a></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Code Editor -->
+        <section class="py-16 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12">Interactive Learning Experience</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="code-editor p-6 rounded-lg">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <span class="text-gray-400 text-sm">script.py</span>
+                        </div>
+                        <pre class="syntax-highlight overflow-x-auto"><code><span class="keyword">import</span> <span class="type">numpy</span> <span class="keyword">as</span> <span class="type">np</span>
+<span class="keyword">from</span> <span class="type">sklearn</span>.<span class="type">ensemble</span> <span class="keyword">import</span> <span class="type">RandomForestClassifier</span>
+
+<span class="comment"># Load and prepare data</span>
+<span class="type">X</span> = <span class="type">np</span>.<span class="function">array</span>([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">6</span>]])
+<span class="type">y</span> = <span class="type">np</span>.<span class="function">array</span>([<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>])
+
+<span class="comment"># Create and train model</span>
+<span class="type">model</span> = <span class="type">RandomForestClassifier</span>(<span class="type">n_estimators</span>=<span class="number">100</span>)
+<span class="type">model</span>.<span class="function">fit</span>(<span class="type">X</span>, <span class="type">y</span>)
+
+<span class="comment"># Make prediction</span>
+<span class="function">print</span>(<span class="type">model</span>.<span class="function">predict</span>([[<span class="number">2</span>, <span class="number">3</span>]]))  <span class="comment"># Output: [0]</span></code></pre>
+                        <div class="mt-4 flex justify-end">
+                            <button class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Run Code</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Learn by Doing</h3>
+                        <p class="text-gray-600 mb-6">Our interactive coding environment lets you practice what you learn immediately. Write code, see results, and get instant feedback.</p>
+                        
+                        <div class="bg-gray-800 text-white p-4 rounded-lg mb-6">
+                            <div class="terminal-line mb-2">python script.py</div>
+                            <div class="terminal-line">[0]</div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 text-purple-800 p-2 rounded-full mr-3">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Challenge</h4>
+                                    <p class="text-gray-600">Modify the code to use a Decision Tree classifier instead of Random Forest.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 text-blue-800 p-2 rounded-full mr-3">
+                                    <i class="fas fa-question"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Hint</h4>
+                                    <p class="text-gray-600">Import DecisionTreeClassifier from sklearn.tree</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12">Why Learn With CodeMaster?</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center p-6 rounded-lg hover:shadow-lg transition">
+                        <div class="bg-purple-100 text-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-laptop-code text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Project-Based Learning</h3>
+                        <p class="text-gray-600">Build real-world applications and portfolio projects that demonstrate your skills to employers.</p>
+                    </div>
+                    
+                    <div class="text-center p-6 rounded-lg hover:shadow-lg transition">
+                        <div class="bg-blue-100 text-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-chalkboard-teacher text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Expert Instructors</h3>
+                        <p class="text-gray-600">Learn from industry professionals with years of experience in software development and teaching.</p>
+                    </div>
+                    
+                    <div class="text-center p-6 rounded-lg hover:shadow-lg transition">
+                        <div class="bg-green-100 text-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-users text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Community Support</h3>
+                        <p class="text-gray-600">Join our active community of learners to get help, share projects, and network with peers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Topics -->
+        <section class="py-16 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12">Advanced Topics You'll Master</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <span class="bg-purple-600 text-white p-2 rounded mr-3">
+                                <i class="fab fa-python"></i>
+                            </span>
+                            Python Advanced
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Decorators and metaclasses
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Asynchronous programming with asyncio
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Advanced data structures and algorithms
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Machine learning pipelines
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Performance optimization techniques
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <span class="bg-yellow-600 text-white p-2 rounded mr-3">
+                                <i class="fab fa-js"></i>
+                            </span>
+                            JavaScript Advanced
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Functional programming concepts
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Design patterns and architecture
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                WebAssembly integration
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Advanced React hooks and context API
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Performance profiling and optimization
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <span class="bg-blue-600 text-white p-2 rounded mr-3">
+                                <i class="fab fa-css3-alt"></i>
+                            </span>
+                            CSS Advanced
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                CSS Grid and Flexbox mastery
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Advanced animations and transitions
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                CSS custom properties (variables)
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                BEM and other CSS methodologies
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Responsive design techniques
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <span class="bg-red-600 text-white p-2 rounded mr-3">
+                                <i class="fas fa-project-diagram"></i>
+                            </span>
+                            Full Stack Integration
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Building RESTful APIs with Python/Node
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Authentication and authorization
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Database design and optimization
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Deployment and CI/CD pipelines
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Microservices architecture
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12">What Our Students Say</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-200 flex items-center justify-center mr-4">
+                                <i class="fas fa-user text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Sarah Johnson</h4>
+                                <p class="text-gray-500 text-sm">Python Developer</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"The Python course transformed my career. I went from basic scripting to building machine learning models in just 3 months. The projects were challenging but incredibly rewarding."</p>
+                        <div class="mt-4 flex">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-200 flex items-center justify-center mr-4">
+                                <i class="fas fa-user text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Michael Chen</h4>
+                                <p class="text-gray-500 text-sm">Frontend Engineer</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"The advanced JavaScript course covered everything I needed to level up my React skills. The instructors explain complex concepts in a way that's easy to understand and apply."</p>
+                        <div class="mt-4 flex">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-green-200 flex items-center justify-center mr-4">
+                                <i class="fas fa-user text-green-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">David Rodriguez</h4>
+                                <p class="text-gray-500 text-sm">UI/UX Designer</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"I thought I knew CSS until I took this course. The advanced layout techniques and animations module completely changed how I approach design implementation."</p>
+                        <div class="mt-4 flex">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="gradient-bg text-white py-16">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Advance Your Coding Skills?</h2>
+                <p class="text-xl mb-8 max-w-3xl mx-auto">Join thousands of developers who have accelerated their careers with our advanced programming courses.</p>
+                <div class="flex flex-col md:flex-row justify-center gap-4">
+                    <button class="px-8 py-4 rounded-full bg-white text-purple-600 font-bold text-lg hover:bg-gray-100 transition">Start Learning Now</button>
+                    <button class="px-8 py-4 rounded-full border-2 border-white text-white font-bold text-lg hover:bg-white hover:bg-opacity-10 transition">Talk to an Advisor</button>
+                    <body class="bg-gray-900 min-h-screen flex items-center justify-center">
+                        <button class="dark-gradient-button px-10 py-5 rounded-md text-white font-bold text-2xl shadow-xl">
+                            <span class="relative z-10"><a href="rating.html">Rating</a></span>
+                        </button>
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-code mr-2"></i> CodeMaster
+                    </h3>
+                    <p class="text-gray-400">Advancing your programming skills through expert-led courses and hands-on projects.</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Courses</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Python Programming</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">JavaScript Mastery</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">CSS Artistry</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Full Stack Development</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Data Science</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Cheat Sheets</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Community Forum</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Career Services</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 CodeMaster. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Course data
+        const courses = {
+            python: {
+                title: "Python Mastery: From Basics to AI",
+                icon: "fab fa-python",
+                color: "bg-indigo-600",
+                modules: [
+                    {
+                        title: "Python Fundamentals",
+                        description: "Learn the core concepts of Python programming",
+                        content: `
+                            <h3 class="text-xl font-bold mb-4">Python Basics</h3>
+                            <p class="mb-4">Python is a powerful, versatile programming language used for web development, data analysis, artificial intelligence, and more.</p>
+                            
+                            <div class="mb-6">
+                                <h4 class="font-bold mb-2">Key Concepts:</h4>
+                                <ul class="list-disc pl-6 space-y-1">
+                                    <li>Variables and data types</li>
+                                    <li>Control structures (if/else, loops)</li>
+                                    <li>Functions and modules</li>
+                                    <li>Working with files</li>
+                                    <li>Exception handling</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="code-editor p-4 rounded-lg mb-6">
+                                <pre class="syntax-highlight overflow-x-auto"><code><span class="comment"># Simple Python example</span>
+<span class="keyword">def</span> <span class="function">greet</span>(name):
+    <span class="keyword">return</span> <span class="string">f"Hello, {name}!"</span>
+
+<span class="function">print</span>(<span class="function">greet</span>(<span class="string">"CodeMaster"</span>))</code></pre>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-bold mb-2">Did You Know?</h4>
+                                <p>Python uses indentation to define code blocks instead of curly braces like many other languages.</p>
+                            </div>
+                        `
+                    },
+                    {
+                        title: "Object-Oriented Programming",
+                        description: "Master classes, objects, and OOP principles in Python",
+                        content: `
+                            <h3 class="text-xl font-bold mb-4">Object-Oriented Python</h3>
+                            <p class="mb-4">Object-oriented programming (OOP) is a programming paradigm that uses objects and classes for organizing code.</p>
+                            
+                            <div class="mb-6">
+                                <h4 class="font-bold mb-2">OOP Concepts:</h4>
+                                <ul class="list-disc pl-6 space-y-1">
+                                    <li>Classes and objects</li>
+                                    <li>Inheritance and polymorphism</li>
+                                    <li>Encapsulation</li>
+                                    <li>Magic methods</li>
+                                    <li>Class vs instance attributes</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="code-editor p-4 rounded-lg mb-6">
+                                <pre class="syntax-highlight overflow-x-auto"><code><span class="keyword">class</span> <span class="type">Animal</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>, name):
+        <span class="keyword">self</span>.name = name
+    
+    <span class="keyword">def</span> <span class="function">speak</span>(<span class="keyword">self</span>):
+        <span class="keyword">raise</span> <span class="type">NotImplementedError</span>(<span class="string">"Subclass must implement"</span>)
+
+<span class="keyword">class</span> <span class="type">Dog</span>(<span class="type">Animal</span>):
+    <span class="keyword">def</span> <span class="function">speak</span>(<span class="keyword">self</span>):
+        <span class="keyword">return</span> <span class="string">f"{self.name} says woof!"</span></code></pre>
+                            </div>
+                        `
+                    },
+                    {
+                        title: "Data Science with Python",
+                        description: "Learn NumPy, Pandas, and data visualization",
+                        content: `
+                            <h3 class="text-xl font-bold mb-4">Data Science Essentials</h3>
+                            <p class="mb-4">Python is the leading language for data science due to its powerful libraries and ease of use.</p>
+                            
+                            <div class="mb-6">
+                                <h4 class="font-bold mb-2">Key Libraries:</h4>
+                                <ul class="list-disc pl-6 space-y-1">
+                                    <li>NumPy for numerical computing</li>
+                                    <li>Pandas for data manipulation</li>
+                                    <li>Matplotlib for visualization</li>
+                                    <li>Seaborn for statistical graphics</li>
+                                    <li>Scikit-learn for machine learning</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="code-editor p-4 rounded-lg mb-6">
+                                <pre class="syntax-highlight overflow-x-auto"><code><span class="keyword">import</span> <span class="type">pandas</span> <span class="keyword">as</span> <span class="type">pd</span>
+<span class="keyword">import</span> <span class="type">matplotlib.pyplot</span> <span class="keyword">as</span> <span class="type">plt</span>
+
+<span class="comment"># Load and analyze data</span>
+<span class="type">data</span> = <span class="type">pd</span>.<span class="function">read_csv</span>(<span class="string">'data.csv'</span>)
+<span class="function">print</span>(<span class="type">data</span>.<span class="function">describe</span>())
+
+<span class="comment"># Create a simple plot</span>
+<span class="type">data</span>.<span class="function">plot</span>(kind=<span class="string">'bar'</span>)
+<span class="type">plt</span>.<span class="function">show</span>()</code></pre>
+                            </div>
+                        `
+                    }
+                ],
+                challenges: [
+                    {
+                        title: "Python Basics Challenge",
+                        description: "Write a function that takes a list of numbers and returns the sum of all even numbers.",
+                        difficulty: "Easy",
+                        solution: `def sum_even_numbers(numbers):
+    return sum(num for num in numbers if num % 2 == 0)`
+                    },
+                    {
+                        title: "OOP Challenge",
+                        description: "Create a BankAccount class with methods for deposit, withdraw, and check_balance.",
+                        difficulty: "Medium",
+                        solution: `class BankAccount:
+    def __init__(self, balance=0):
+        self.balance = balance
+        
+    def deposit(self, amount):
+        self.balance += amount
+        
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise ValueError("Insufficient funds")
+        self.balance -= amount
+        
+    def check_balance(self):
+        return self.balance`
+                    },
+                    {
+                        title: "Data Analysis Challenge",
+                        description: "Given a Pandas DataFrame of sales data, calculate the total sales per month.",
+                        difficulty: "Hard",
+                        solution: `import pandas as pd
+
+def total_sales_per_month(sales_data):
+    sales_data['date'] = pd.to_datetime(sales_data['date'])
+    sales_data['month'] = sales_data['date'].dt.month
+    return sales_data.groupby('month')['amount'].sum()`
+                    }
+                ]
+            },
+            javascript: {
+                title: "Modern JavaScript: ES6+ and Beyond",
+                icon: "fab fa-js-square",
+                color: "bg-yellow-500",
+                modules: [
+                    {
+                        title: "ES6+ Features",
+                        description: "Learn modern JavaScript features introduced in ES6 and beyond",
+                        content: `
+                            <h3 class="text-xl font-bold mb-4">Modern JavaScript</h3>
+                            <p class="mb-4">ECMAScript 6 (ES6) introduced many powerful features that modern JavaScript developers use daily.</p>
+                            
+                            <div class="mb-6">
+                                <h4 class="font-bold mb-2">Key Features:</h4>
+                                <ul class="list-disc pl-6 space-y-1">
+                                    <li>let and const declarations</li>
+                                    <li>Arrow functions</li>
+                                    <li>Template literals</li>
+                                    <li>Destructuring assignment</li>
+                                    <li>Spread and rest operators</li>
+                                    <li>Modules (import/export)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="code-editor p-4 rounded-lg mb-6">
+                                <pre class="syntax-highlight overflow-x-auto"><code><span class="comment">// ES6+ Example</span>
+<span class="keyword">const</span> <span class="function">greet</span> = <span class="keyword">name</span> => <span class="string">`Hello, ${name}!`</span>,
+
+<span class="keyword">const</span> person = {
+  <span class="keyword">name</span>: <span class="string">'Alice'</span>,
+  <span class="keyword">age</span>: <span class="number">30</span>,
+  <span class="keyword">hobbies</span>: [<span class="string">'coding'</span>, <span class="string">'reading'</span>]
+};
+
+<span class="comment">// Destructuring</span>
+<span class="keyword">const</span> { <span class="keyword">name</span>, ...rest } = person;</code></pre>
+                            </div>
+                        `
+                    },
+                    {
+                        title: "Asynchronous JavaScript",
+                        description: "Master promises, async/await, and event loops";
+                        content: `
+                            <h3 class="text-xl font-bold mb-4">Async JavaScript</h3>
+                            <p class="mb-4">JavaScript is single-threaded but handles asynchronous operations through callbacks, promises, and async/await.</p>
+                            
+                            <div class="mb-6">
+                                <h4 class="font-bold mb-2">Key Concepts:</h4>
+                                <ul class="list-disc pl-6 space-y-1">
+                                    <li>Callbacks and callback hell</li>
+                                    <li>Promises and promise chaining</li>
+                                    <li>Async/await syntax</li>
+                                    <li>Error handling</li>
+                                    <li>The event loop</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="code-editor p-4 rounded-lg mb-6">
+                                <pre class="syntax-highlight overflow-x-auto"><code><span class="comment">// Fetch API with async/await</span>
+<span class="keyword">async</span> <span class="keyword">function</span> <span class="function">getUser</span>(userId) {
+  <span class="keyword">try</span> {
+    <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">`/api/users/${userId}`</span>);
+    <span class="keyword">const</span> data = <span class="keyword">await</span> response.<span class="function">json</span>();
+    <span class="keyword">return</span> data;
+  } <span class="keyword">catch</span> (error) {
+    <span class="function">console</span>.<span class="function">error</span>(<span class="string">'Error:'</span>, error);
+    <span class="keyword">throw</span> error;
+  }
+}</code></pre>
+                            </div>
+                        `
+                    },
+                    {
+                        title: "Functional Programming",
+                        description: "Learn functional programming concepts in JavaScript";
+                        content: `
+                            <h3 class="text-xl font-bold mb-4">Functional JavaScript</h3>
+                            <p class="mb-4">JavaScript supports functional programming paradigms with first-class functions and higher-order functions.</p>
+                            
+                            <div class="mb-6">
+                                <h4 class="font-bold mb-2">FP Concepts:</h4>
+                                <ul class="list-disc pl-6 space-y-1">
+                                    <li>Pure functions</li>
+                                    <li>Immutability</li>
+                                    <li>Higher-order functions</li>
+                                    <li>Function composition</li>
+                                    <li>Currying and partial application</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="code-editor p-4 rounded-lg mb-6">
+                                <pre class="syntax-highlight overflow-x-auto"><code><span class="comment">// Functional programming example</span>
+<span class="keyword">const</span> <span class="function">double</span> = x => x * <span class="number">2</span>;
+<span class="keyword">const</span> <span class="function">triple</span> = x => x * <span class="number">3</span>;
+<span class="keyword">const</span> <span class="function">compose</span> = (...fns) => x => fns.<span class="function">reduceRight</span>((v, f) => <span class="function">f</span>(v), x);
+
+<span class="keyword">const</span> <span class="function">transform</span> = <span class="function">compose</span>(double, triple);
+<span class="function">console</span>.<span class="function">log</span>(<span class="function">transform</span>(<span class="number">5</span>)); <span class="comment">// 30</span></code></pre>
+                            </div>
+                        `
+                    }
+                ],
+                challenges: [
+                    {
+                        title: "Array Manipulation",
+                        description: "Write a function that takes an array of numbers and returns a new array with each number squared.",
+                        difficulty: "Easy",
+                        solution: `function squareNumbers(numbers) {
+    return numbers.map(num => num * num);
+}`
+                    },
+                    {
+                        title: "Promise Challenge",
+                        description: "Create a function that fetches data from two APIs in parallel and returns a combined result.",
+                        difficulty: "Medium",
+                        solution: `async function fetchCombinedData(url1, url2) {
+    const [data1, data2] = await Promise.all([
+        fetch(url1).then(res => res.json()),
+        fetch(url2).then(res => res.json())
+    ]);
+    return { ...data1, ...data2 };
+}`
+                    },
+                    {
+                        title: "Functional Programming",
+                        description: "Implement a compose function that takes multiple functions and returns a new function that applies them right-to-left.",
+                        difficulty: "Hard",
+                        solution: `function compose(...fns) {
+    return function(x) {
+        return fns.reduceRight((acc, fn) => fn(acc), x);
+    };
+}`
+                    }
+                ]
+            },
+            css: {
+                title: "CSS Artistry: Animations & Layouts",
+                icon: "fab fa-css3-alt",
+                color: "bg-green-500",
+                modules: [
+                    {
+                        title: "Advanced Layouts",
+                        description: "Master CSS Grid and Flexbox for modern layouts",
+                        content: `
+                            <h3 class="text-xl font-bold mb-4">CSS Layout Systems</h3>
+                            <p class="mb-4">Modern CSS provides powerful layout systems that make responsive design easier than ever.</p>
+                            
+                            <div class="mb-6">
+                                <h4 class="font-bold mb-2">Layout Techniques:</h4>
+                                <ul class="list-disc pl-6 space-y-1">
+                                    <li>Flexbox for 1D layouts</li>
+                                    <li>CSS Grid for 2D layouts</li>
+                                    <li>Combining both for complex designs</li>
+                                    <li>Responsive design patterns</li>
+                                    <li>Alignment and spacing techniques</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="code-editor p-4 rounded-lg mb-6">
+                                <pre class="syntax-highlight overflow-x-auto"><code><span class="comment">/* CSS Grid Example */</span>
+<span class="keyword">.container</span> {
+  <span class="keyword">display</span>: grid;
+  <span class="keyword">grid-template-columns</span>: <span class="number">repeat</span>(<span class="number">3</span>, <span class="number">1</span>fr);
+  <span class="keyword">gap</span>: <span class="number">20</span>px;
+}
+
+<span class="keyword">.item</span> {
+  <span class="keyword">grid-column</span>: span <span class="number">2</span>;
+  <span class="keyword">background</span>: <span class="number">#f0f0f0</span>;
+  <span class="keyword">padding</span>: <span class="number">20</span>px;
+}</code></pre>
+                            </div>
+                        `
+                    },
+                    {
+                        title: "CSS Animations",
+                        description: "Create smooth animations and transitions",
+                        content: `
+                            <h3 class="text-xl font-bold mb-4">CSS Animations</h3>
+                            <p class="mb-4">CSS provides powerful tools for creating animations that enhance user experience.</p>
+                            
+                            <div class="mb-6">
+                                <h4 class="font-bold mb-2">Animation Techniques:</h4>
+                                <ul class="list-disc pl-6 space-y-1">
+                                    <li>Transitions for simple animations</li>
+                                    <li>Keyframe animations for complex sequences</li>
+                                    <li>Performance optimization</li>
+                                    <li>Animation timing functions</li>
+                                    <li>3D transforms and perspective</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="code-editor p-4 rounded-lg mb-6">
+                                <pre class="syntax-highlight overflow-x-auto"><code><span class="comment">/* Keyframe Animation */</span>
+<span class="keyword">@keyframes</span> slideIn {
+  <span class="keyword">from</span> {
+    <span class="keyword">transform</span>: <span class="function">translateX</span>(<span class="number">-100</span>%);
+  }
+  <span class="keyword">to</span> {
+    <span class="keyword">transform</span>: <span class="function">translateX</span>(<span class="number">0</span>);
+  }
+}
+
+<span class="keyword">.animated-element</span> {
+  <span class="keyword">animation</span>: slideIn <span class="number">0.5</span>s ease-out;
+}</code></pre>
+                            </div>
+                        `
+                    },
+                    {
+                        title: "CSS Custom Properties",
+                        description: "Leverage CSS variables for maintainable styles",
+                        content: `
+                            <h3 class="text-xl font-bold mb-4">CSS Variables</h3>
+                            <p class="mb-4">CSS Custom Properties (variables) allow you to store and reuse values throughout your stylesheets.</p>
+                            
+                            <div class="mb-6">
+                                <h4 class="font-bold mb-2">Benefits:</h4>
+                                <ul class="list-disc pl-6 space-y-1">
+                                    <li>Centralized control of design tokens</li>
+                                    <li>Dynamic theming capabilities</li>
+                                    <li>Better maintainability</li>
+                                    <li>Runtime manipulation with JavaScript</li>
+                                    <li>Cascade and inheritance behavior</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="code-editor p-4 rounded-lg mb-6">
+                                <pre class="syntax-highlight overflow-x-auto"><code><span class="comment">/* CSS Variables Example */</span>
+<span class="keyword">:root</span> {
+  <span class="keyword">--primary-color</span>: <span class="number">#6200ee</span>;
+  <span class="keyword">--spacing-unit</span>: <span class="number">8</span>px;
+}
+
+<span class="keyword">.button</span> {
+  <span class="keyword">background-color</span>: <span class="function">var</span>(<span class="number">--primary-color</span>);
+  <span class="keyword">padding</span>: <span class="function">calc</span>(<span class="function">var</span>(<span class="number">--spacing-unit</span>) * <span class="number">2</span>);
+}
+
+<span class="keyword">.dark-theme</span> {
+  <span class="keyword">--primary-color</span>: <span class="number">#bb86fc</span>;
+}</code></pre>
+                            </div>
+                        `
+                    }
+                ],
+                challenges: [
+                    {
+                        title: "Grid Layout",
+                        description: "Create a responsive grid layout that shows 4 columns on desktop, 2 on tablet, and 1 on mobile.",
+                        difficulty: "Easy",
+                        solution: `.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}`
+                    },
+                    {
+                        title: "Animation Challenge",
+                        description: "Create a button that grows slightly on hover and has a smooth color transition.",
+                        difficulty: "Medium",
+                        solution: `.button {
+    padding: 0.5rem 1rem;
+    background-color: #6200ee;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    transform: scale(1.05);
+    background-color: #3700b3;
+}`
+                    },
+                    {
+                        title: "CSS Variables",
+                        description: "Create a dark/light theme toggle using CSS variables and JavaScript.",
+                        difficulty: "Hard",
+                        solution: `:root {
+    --bg-color: white;
+    --text-color: black;
+}
+
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: white;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+// JavaScript to toggle:
+document.querySelector('.theme-toggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});`
+                    }
+                ]
+            }
+        };
+
+        // DOM Elements
+        const authModal = document.getElementById('auth-modal');
+        const loginBtn = document.getElementById('login-btn');
+        const closeModal = document.getElementById('close-modal');
+        const signinTab = document.getElementById('signin-tab');
+        const signupTab = document.getElementById('signup-tab');
+        const signinForm = document.getElementById('signin-form');
+        const signupForm = document.getElementById('signup-form');
+        const mainContent = document.getElementById('main-content');
+        const courseContent = document.getElementById('course-content');
+        const backToCourses = document.getElementById('back-to-courses');
+        const courseTitle = document.getElementById('course-title');
+        const courseIcon = document.getElementById('course-icon');
+        const currentModuleTitle = document.getElementById('current-module-title');
+        const currentModuleDescription = document.getElementById('current-module-description');
+        const moduleContent = document.getElementById('module-content');
+        const prevModuleBtn = document.getElementById('prev-module');
+        const nextModuleBtn = document.getElementById('next-module');
+        const courseModules = document.getElementById('course-modules');
+        const challengesContainer = document.getElementById('challenges-container');
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercent = document.getElementById('progress-percent');
+
+        // State
+        let currentCourse = null;
+        let currentModuleIndex = 0;
+        let completedChallenges = [];
+        let userRating = 0;
+
+        // Event Listeners
+        loginBtn.addEventListener('click', () => {
+            authModal.classList.remove('modal-hidden');
+        });
+
+        closeModal.addEventListener('click', () => {
+            authModal.classList.add('modal-hidden');
+        });
+
+        signinTab.addEventListener('click', () => {
+            signinTab.classList.add('border-b-2', 'border-purple-600', 'text-purple-600');
+            signupTab.classList.remove('border-b-2', 'border-purple-600', 'text-purple-600');
+            signinForm.classList.remove('hidden');
+            signupForm.classList.add('hidden');
+            document.getElementById('auth-modal-title').textContent = 'Sign In';
+        });
+
+        signupTab.addEventListener('click', () => {
+            signupTab.classList.add('border-b-2', 'border-purple-600', 'text-purple-600');
+            signinTab.classList.remove('border-b-2', 'border-purple-600', 'text-purple-600');
+            signupForm.classList.remove('hidden');
+            signinForm.classList.add('hidden');
+            document.getElementById('auth-modal-title').textContent = 'Sign Up';
+        });
+
+        signinForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // In a real app, you would handle authentication here
+            alert('Sign in functionality would be implemented here');
+            authModal.classList.add('modal-hidden');
+        });
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // In a real app, you would handle registration here
+            alert('Sign up functionality would be implemented here');
+            authModal.classList.add('modal-hidden');
+        });
+
+        // Course navigation
+        document.querySelectorAll('[data-course]').forEach(card => {
+            card.addEventListener('click', () => {
+                const courseType = card.getAttribute('data-course');
+                loadCourse(courseType);
+            });
+        });
+
+        document.querySelectorAll('.tab button[data-course]').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const courseType = tab.getAttribute('data-course');
+                // Filter courses by type
+                document.querySelectorAll('.course-card').forEach(card => {
+                    if (courseType && card.getAttribute('data-course') !== courseType) {
+                        card.style.display = 'none';
+                    } else {
+                        card.style.display = 'block';
+                    }
+                });
+            });
+        });
+
+        backToCourses.addEventListener('click', () => {
+            mainContent.classList.remove('hidden');
+            courseContent.classList.add('hidden');
+        });
+
+        prevModuleBtn.addEventListener('click', () => {
+            if (currentModuleIndex > 0) {
+                currentModuleIndex--;
+                loadModule();
+            }
+        });
+
+        nextModuleBtn.addEventListener('click', () => {
+            if (currentModuleIndex < currentCourse.modules.length - 1) {
+                currentModuleIndex++;
+                loadModule();
+            }
+        });
+
+        // Star rating
+        document.querySelectorAll('.star-rating .star').forEach(star => {
+            star.addEventListener('click', () => {
+                const rating = parseInt(star.getAttribute('data-rating'));
+                userRating = rating;
+                
+                // Update stars
+                const stars = document.querySelectorAll('.star-rating .star');
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.add('text-yellow-400');
+                        s.classList.remove('text-gray-300');
+                    } else {
+                        s.classList.remove('text-yellow-400');
+                        s.classList.add('text-gray-300');
+                    }
+                });
+                
+                // In a real app, you would save the rating to your backend
+                console.log(`User rated this course ${rating} stars`);
+            });
+        });
+
+        // Functions
+        function loadCourse(courseType) {
+            currentCourse = courses[courseType];
+            currentModuleIndex = 0;
+            completedChallenges = [];
+            
+            // Update UI
+            mainContent.classList.add('hidden');
+            courseContent.classList.remove('hidden');
+            
+            courseTitle.textContent = currentCourse.title;
+            courseIcon.className = `${currentCourse.icon} ${currentCourse.color} w-12 h-12 rounded-full flex items-center justify-center text-white text-2xl`;
+            
+            // Load modules list
+            courseModules.innerHTML = '';
+            currentCourse.modules.forEach((module, index) => {
+                const moduleItem = document.createElement('div');
+                moduleItem.className = 'flex items-center justify-between p-2 hover:bg-gray-100 rounded cursor-pointer';
+                moduleItem.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center mr-3">
+                            ${index + 1}
+                        </div>
+                        <span>${module.title}</span>
+                    </div>
+                    <i class="fas fa-check-circle text-green-500 ${index === 0 ? '' : 'hidden'}"></i>
+                `;
+                
+                moduleItem.addEventListener('click', () => {
+                    currentModuleIndex = index;
+                    loadModule();
+                });
+                
+                courseModules.appendChild(moduleItem);
+            });
+            
+            // Load challenges
+            loadChallenges();
+            
+            // Load first module
+            loadModule();
+        }
+
+        function loadModule() {
+            const module = currentCourse.modules[currentModuleIndex];
+            
+            currentModuleTitle.textContent = module.title;
+            currentModuleDescription.textContent = module.description;
+            moduleContent.innerHTML = module.content;
+            
+            // Update navigation buttons
+            prevModuleBtn.disabled = currentModuleIndex === 0;
+            nextModuleBtn.disabled = currentModuleIndex === currentCourse.modules.length - 1;
+            
+            // Update progress
+            const progress = ((currentModuleIndex + 1) / currentCourse.modules.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressPercent.textContent = `${Math.round(progress)}%`;
+            
+            // Update completed modules
+            document.querySelectorAll('#course-modules div').forEach((item, index) => {
+                const checkIcon = item.querySelector('.fa-check-circle');
+                if (index <= currentModuleIndex) {
+                    checkIcon.classList.remove('hidden');
+                } else {
+                    checkIcon.classList.add('hidden');
+                }
+            });
+        }
+
+        function loadChallenges() {
+            challengesContainer.innerHTML = '';
+            
+            currentCourse.challenges.forEach((challenge, index) => {
+                const isCompleted = completedChallenges.includes(index);
+                
+                const challengeElement = document.createElement('div');
+                challengeElement.className = `p-4 border rounded-lg ${isCompleted ? 'challenge-complete' : 'bg-gray-50'}`;
+                challengeElement.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold">${challenge.title}</h3>
+                        <span class="text-xs px-2 py-1 rounded ${getDifficultyClass(challenge.difficulty)}">
+                            ${challenge.difficulty}
+                        </span>
+                    </div>
+                    <p class="mb-4">${challenge.description}</p>
+                    <div class="flex justify-between items-center">
+                        <button class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 view-solution" data-index="${index}">
+                            View Solution
+                        </button>
+                        ${isCompleted ? 
+                            '<span class="text-sm flex items-center"><i class="fas fa-check-circle mr-1"></i> Completed</span>' : 
+                            '<button class="px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 complete-challenge" data-index="${index}">Mark Complete</button>'}
+                    </div>
+                    <div class="mt-4 hidden solution-container

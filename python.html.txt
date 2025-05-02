@@ -1,0 +1,649 @@
+PYTHON 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Learning Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        python: {
+                            blue: '#3776AB',
+                            yellow: '#FFD43B',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .code-block {
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            tab-size: 4;
+        }
+        .playground-output {
+            min-height: 100px;
+            border: 1px dashed #ccc;
+        }
+        .dark .playground-output {
+            border-color: #555;
+        }
+        .slide {
+            display: none;
+        }
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .question-option {
+            transition: all 0.2s;
+        }
+        .question-option:hover {
+            transform: translateY(-2px);
+        }
+        .correct {
+            background-color: #4CAF50 !important;
+            color: white !important;
+        }
+        .incorrect {
+            background-color: #F44336 !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-200">
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8">
+            <div class="flex items-center">
+                <i class="fab fa-python text-4xl mr-3 text-python-blue dark:text-python-yellow"></i>
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-python-blue to-python-yellow bg-clip-text text-transparent">
+                    Python Learning Course
+                </h1>
+            </div>
+            <button id="themeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:inline"></i>
+            </button>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="mb-8">
+            <div class="flex justify-between mb-2">
+                <span id="progressText" class="font-medium">Lesson 1 of 10</span>
+                <span id="progressPercent" class="font-medium">10%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                <div id="progressBar" class="bg-python-blue h-2.5 rounded-full" style="width: 10%"></div>
+            </div>
+        </div>
+
+        <!-- Course Content -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
+            <!-- Slide 1: Introduction -->
+            <div class="slide active" id="slide1">
+                <h2 class="text-2xl font-bold mb-4 text-python-blue dark:text-python-yellow">Welcome to Python!</h2>
+                <div class="mb-6">
+                    <p class="mb-4">Python is a powerful, easy-to-learn programming language used for web development, data science, artificial intelligence, and much more.</p>
+                    <p class="mb-4">In this course, you'll learn Python from the ground up, with interactive examples and exercises.</p>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                        <h3 class="font-semibold mb-2">Did you know?</h3>
+                        <p>Python was named after the British comedy group Monty Python, not the snake!</p>
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <button onclick="nextSlide()" class="bg-python-blue hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 2: Variables -->
+            <div class="slide" id="slide2">
+                <h2 class="text-2xl font-bold mb-4 text-python-blue dark:text-python-yellow">Variables</h2>
+                <div class="mb-6">
+                    <p class="mb-4">Variables are containers for storing data values. In Python, you don't need to declare the type of variable.</p>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code># Variable assignment
+message = "Hello, World!"
+count = 42
+price = 19.99
+is_active = True</code></pre>
+                    </div>
+                    <p class="mb-4">Python variables can change type after they've been set:</p>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code>x = 4       # x is an integer
+x = "Sally" # x is now a string
+print(x)    # Output: Sally</code></pre>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-python-blue hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 3: Data Types -->
+            <div class="slide" id="slide3">
+                <h2 class="text-2xl font-bold mb-4 text-python-blue dark:text-python-yellow">Data Types</h2>
+                <div class="mb-6">
+                    <p class="mb-4">Python has several built-in data types:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Text Type:</h3>
+                            <p><code>str</code> (e.g., "hello")</p>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Numeric Types:</h3>
+                            <p><code>int</code>, <code>float</code>, <code>complex</code></p>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Sequence Types:</h3>
+                            <p><code>list</code>, <code>tuple</code>, <code>range</code></p>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Mapping Type:</h3>
+                            <p><code>dict</code> (dictionary)</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code># Examples of different data types
+name = "Alice"                  # str
+age = 25                        # int
+height = 5.9                    # float
+fruits = ["apple", "banana"]    # list
+person = {"name": "Bob", "age": 30}  # dict</code></pre>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-python-blue hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 4: Control Flow -->
+            <div class="slide" id="slide4">
+                <h2 class="text-2xl font-bold mb-4 text-python-blue dark:text-python-yellow">Control Flow</h2>
+                <div class="mb-6">
+                    <p class="mb-4">Python uses indentation to define blocks of code (typically 4 spaces).</p>
+                    
+                    <h3 class="text-xl font-semibold mt-4 mb-2">If Statements</h3>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code>age = 18
+if age >= 18:
+    print("You are an adult")
+elif age >= 13:
+    print("You are a teenager")
+else:
+    print("You are a child")</code></pre>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold mt-4 mb-2">Loops</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">For Loop</h4>
+                            <pre class="code-block text-sm"><code>fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)</code></pre>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">While Loop</h4>
+                            <pre class="code-block text-sm"><code>count = 0
+while count < 5:
+    print(count)
+    count += 1</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-python-blue hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 5: Functions -->
+            <div class="slide" id="slide5">
+                <h2 class="text-2xl font-bold mb-4 text-python-blue dark:text-python-yellow">Functions</h2>
+                <div class="mb-6">
+                    <p class="mb-4">Functions are blocks of reusable code that perform a specific task.</p>
+                    
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code># Define a function
+def greet(name):
+    """This function greets the person passed in"""
+    print("Hello, " + name + "!")
+
+# Call the function
+greet("Alice")  # Output: Hello, Alice!</code></pre>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold mt-4 mb-2">Return Values</h3>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code>def add_numbers(a, b):
+    return a + b
+
+result = add_numbers(5, 3)
+print(result)  # Output: 8</code></pre>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold mt-4 mb-2">Default Parameters</h3>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code>def greet(name="World"):
+    print("Hello, " + name + "!")
+
+greet()        # Output: Hello, World!
+greet("Alice") # Output: Hello, Alice!</code></pre>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-python-blue hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 6: Quiz -->
+            <div class="slide" id="slide6">
+                <h2 class="text-2xl font-bold mb-4 text-python-blue dark:text-python-yellow">Quick Quiz</h2>
+                <div class="mb-6">
+                    <div id="quizQuestion1" class="mb-8">
+                        <h3 class="text-lg font-semibold mb-4">1. What is the output of the following code?</h3>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                            <pre class="code-block text-sm"><code>x = 5
+y = "Hello"
+print(x + y)</code></pre>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                A) 5Hello
+                            </button>
+                            <button onclick="checkAnswer(this, true)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                B) TypeError
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                C) Hello5
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                D) 5 Hello
+                            </button>
+                        </div>
+                        <div id="quizFeedback1" class="mt-3 hidden">
+                            <div class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 p-3 rounded-lg">
+                                <strong>Correct!</strong> You cannot add an integer and a string together in Python.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="quizQuestion2" class="mb-8">
+                        <h3 class="text-lg font-semibold mb-4">2. Which of these is NOT a Python data type?</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                A) list
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                B) tuple
+                            </button>
+                            <button onclick="checkAnswer(this, true)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                C) array
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                D) dict
+                            </button>
+                        </div>
+                        <div id="quizFeedback2" class="mt-3 hidden">
+                            <div class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 p-3 rounded-lg">
+                                <strong>Correct!</strong> Python has lists, not arrays (though there is an array module for specialized use).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="quizQuestion3" class="mb-8">
+                        <h3 class="text-lg font-semibold mb-4">3. What is the correct way to create a function in Python?</h3>
+                        <div class="grid grid-cols-1 gap-3">
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                A) function myFunction():
+                            </button>
+                            <button onclick="checkAnswer(this, true)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                B) def myFunction():
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                C) create myFunction():
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                D) func myFunction():
+                            </button>
+                        </div>
+                        <div id="quizFeedback3" class="mt-3 hidden">
+                            <div class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 p-3 rounded-lg">
+                                <strong>Correct!</strong> Python uses the <code>def</code> keyword to define functions.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-python-blue hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 7: Playground -->
+            <div class="slide" id="slide7">
+                <h2 class="text-2xl font-bold mb-4 text-python-blue dark:text-python-yellow">Python Playground</h2>
+                <div class="mb-6">
+                    <p class="mb-4">Try writing your own Python code below and see the results!</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-semibold mb-2">Editor</h3>
+                            <textarea id="playgroundCode" class="w-full h-64 bg-gray-100 dark:bg-gray-700 p-4 rounded-lg font-mono text-sm" spellcheck="false"># Write your Python code here
+print("Hello, Python!")
+
+# Example: Calculate the sum of numbers from 1 to 10
+total = 0
+for i in range(1, 11):
+    total += i
+print("Sum from 1 to 10 is:", total)</textarea>
+                            <button onclick="runCode()" class="mt-3 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition w-full">
+                                <i class="fas fa-play mr-2"></i> Run Code
+                            </button>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Output</h3>
+                            <div id="playgroundOutput" class="playground-output bg-white dark:bg-gray-900 p-4 rounded-lg font-mono text-sm overflow-auto"></div>
+                            <div class="mt-3">
+                                <h3 class="font-semibold mb-2">Try these examples:</h3>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button onclick="loadExample(1)" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                        Simple Calculator
+                                    </button>
+                                    <button onclick="loadExample(2)" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                        List Operations
+                                    </button>
+                                    <button onclick="loadExample(3)" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                        FizzBuzz
+                                    </button>
+                                    <button onclick="loadExample(4)" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                        Fibonacci
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-python-blue hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 8: Final Slide -->
+            <div class="slide" id="slide8">
+                <h2 class="text-2xl font-bold mb-4 text-python-blue dark:text-python-yellow">Congratulations!</h2>
+                <div class="mb-6 text-center">
+                    <div class="bg-green-100 dark:bg-green-900 p-6 rounded-lg mb-6">
+                        <i class="fas fa-trophy text-5xl text-yellow-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">You've completed the Python Basics Course!</h3>
+                        <p class="mb-4">You've learned about variables, data types, control flow, functions, and more.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Next Steps</h3>
+                            <ul class="list-disc pl-5">
+                                <li>Practice coding daily</li>
+                                <li>Work on small projects</li>
+                                <li>Explore Python libraries</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Resources</h3>
+                            <ul class="list-disc pl-5">
+                                <li>Python Official Documentation</li>
+                                <li>Real Python Tutorials</li>
+                                <li>Python for Beginners</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Community</h3>
+                            <ul class="list-disc pl-5">
+                                <li>Python Discord</li>
+                                <li>Stack Overflow</li>
+                                <li>Local Meetups</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <p class="mb-6">Keep coding and have fun with Python!</p>
+                    
+                    <button id="leaveRoomBtn" class="bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-6 rounded-lg transition">
+                        <i class="fas fa-door-open mr-2"></i> <a href="index.html">Leave room</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+        });
+
+        // Set initial theme based on preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+
+        // Slide navigation
+        let currentSlide = 1;
+        const totalSlides = 8;
+
+        function updateProgress() {
+            const progressPercent = Math.round((currentSlide / totalSlides) * 100);
+            document.getElementById('progressPercent').textContent = `${progressPercent}%`;
+            document.getElementById('progressBar').style.width = `${progressPercent}%`;
+            document.getElementById('progressText').textContent = `Lesson ${currentSlide} of ${totalSlides}`;
+        }
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => slide.classList.remove('active'));
+            document.getElementById(`slide${n}`).classList.add('active');
+            currentSlide = n;
+            updateProgress();
+            
+            // Scroll to top when changing slides
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Quiz functionality
+        function checkAnswer(button, isCorrect) {
+            const questionDiv = button.closest('[id^="quizQuestion"]');
+            const feedbackId = questionDiv.id.replace("Question", "Feedback");
+            const feedbackDiv = document.getElementById(feedbackId);
+            
+            // Reset all buttons in this question
+            const allButtons = questionDiv.querySelectorAll('.question-option');
+            allButtons.forEach(btn => {
+                btn.classList.remove('correct', 'incorrect');
+            });
+            
+            // Mark the clicked button
+            if (isCorrect) {
+                button.classList.add('correct');
+                feedbackDiv.classList.remove('hidden');
+            } else {
+                button.classList.add('incorrect');
+                
+                // Find and show the correct answer
+                const correctButton = [...allButtons].find(btn => btn.classList.contains('question-option') && btn !== button);
+                if (correctButton) {
+                    setTimeout(() => {
+                        correctButton.classList.add('correct');
+                        feedbackDiv.classList.remove('hidden');
+                    }, 500);
+                }
+            }
+        }
+
+        // Playground functionality
+        function runCode() {
+            const code = document.getElementById('playgroundCode').value;
+            const outputDiv = document.getElementById('playgroundOutput');
+            
+            // Clear previous output
+            outputDiv.innerHTML = '';
+            
+            try {
+                // Create a function from the code and execute it
+                const func = new Function(code);
+                
+                // Override console.log to capture output
+                const oldLog = console.log;
+                console.log = function(...args) {
+                    oldLog.apply(console, args); // Keep original logging
+                    args.forEach(arg => {
+                        const line = document.createElement('div');
+                        line.textContent = String(arg);
+                        outputDiv.appendChild(line);
+                    });
+                };
+                
+                // Execute the code
+                func();
+                
+                // Restore original console.log
+                console.log = oldLog;
+                
+            } catch (error) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'text-red-500';
+                errorDiv.textContent = error.message;
+                outputDiv.appendChild(errorDiv);
+            }
+        }
+
+        function loadExample(exampleNum) {
+            const examples = [
+                `# Simple Calculator
+num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+operator = input("Enter operator (+, -, *, /): ")
+
+if operator == '+':
+    result = num1 + num2
+elif operator == '-':
+    result = num1 - num2
+elif operator == '*':
+    result = num1 * num2
+elif operator == '/':
+    result = num1 / num2
+else:
+    result = "Invalid operator"
+
+print("Result:", result)`,
+
+                `# List Operations
+fruits = ["apple", "banana", "cherry"]
+
+# Add an item
+fruits.append("orange")
+
+# Remove an item
+fruits.remove("banana")
+
+# Change an item
+fruits[0] = "kiwi"
+
+# Loop through list
+print("My favorite fruits:")
+for fruit in fruits:
+    print("- " + fruit)`,
+
+                `# FizzBuzz
+for num in range(1, 21):
+    if num % 15 == 0:
+        print("FizzBuzz")
+    elif num % 3 == 0:
+        print("Fizz")
+    elif num % 5 == 0:
+        print("Buzz")
+    else:
+        print(num)`,
+
+                `# Fibonacci Sequence
+def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        print(a, end=' ')
+        a, b = b, a + b
+
+fibonacci(10)`
+            ];
+            
+            document.getElementById('playgroundCode').value = examples[exampleNum - 1];
+        }
+
+        // Leave room button
+        document.getElementById('leaveRoomBtn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to leave the course?')) {
+                alert('Thank you for taking the Python course! Come back anytime to continue learning.');
+                // In a real app, you might redirect to another page
+                // window.location.href = '/';
+            }
+        });
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

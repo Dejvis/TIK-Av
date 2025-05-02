@@ -1,0 +1,981 @@
+CSS
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Learning Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        css: {
+                            blue: '#2965F1',
+                            dark: '#0D1B2A'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .code-block {
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            tab-size: 2;
+        }
+        .playground-output {
+            min-height: 100px;
+            border: 1px dashed #ccc;
+        }
+        .dark .playground-output {
+            border-color: #555;
+        }
+        .slide {
+            display: none;
+        }
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .question-option {
+            transition: all 0.2s;
+        }
+        .question-option:hover {
+            transform: translateY(-2px);
+        }
+        .correct {
+            background-color: #4CAF50 !important;
+            color: white !important;
+        }
+        .incorrect {
+            background-color: #F44336 !important;
+            color: white !important;
+        }
+        .css-demo-box {
+            width: 100px;
+            height: 100px;
+            background-color: #2965F1;
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-200">
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8">
+            <div class="flex items-center">
+                <i class="fab fa-css3-alt text-4xl mr-3 text-css-blue"></i>
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-css-blue to-css-dark bg-clip-text text-transparent">
+                    CSS Learning Course
+                </h1>
+            </div>
+            <button id="themeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:inline"></i>
+            </button>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="mb-8">
+            <div class="flex justify-between mb-2">
+                <span id="progressText" class="font-medium">Lesson 1 of 8</span>
+                <span id="progressPercent" class="font-medium">12%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                <div id="progressBar" class="bg-css-blue h-2.5 rounded-full" style="width: 12%"></div>
+            </div>
+        </div>
+
+        <!-- Course Content -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
+            <!-- Slide 1: Introduction -->
+            <div class="slide active" id="slide1">
+                <h2 class="text-2xl font-bold mb-4 text-css-blue">Welcome to CSS!</h2>
+                <div class="mb-6">
+                    <p class="mb-4">CSS (Cascading Style Sheets) is the language we use to style web pages. It controls colors, layouts, fonts, and all visual aspects of a website.</p>
+                    <p class="mb-4">In this course, you'll learn CSS fundamentals with interactive examples and exercises.</p>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                        <h3 class="font-semibold mb-2">Did you know?</h3>
+                        <p>CSS was first proposed in 1994 by Håkon Wium Lie while working at CERN with Tim Berners-Lee.</p>
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <button onclick="nextSlide()" class="bg-css-blue hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 2: Selectors -->
+            <div class="slide" id="slide2">
+                <h2 class="text-2xl font-bold mb-4 text-css-blue">CSS Selectors</h2>
+                <div class="mb-6">
+                    <p class="mb-4">Selectors are patterns used to select the element(s) you want to style. Here are some common ones:</p>
+                    
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code>/* Element selector */
+p {
+    color: blue;
+}
+
+/* Class selector */
+.highlight {
+    background-color: yellow;
+}
+
+/* ID selector */
+#header {
+    font-size: 2rem;
+}
+
+/* Attribute selector */
+input[type="text"] {
+    border: 1px solid gray;
+}
+
+/* Pseudo-class selector */
+button:hover {
+    background-color: darkblue;
+}</code></pre>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <h3 class="font-semibold mb-2">Specificity Hierarchy</h3>
+                            <ol class="list-decimal pl-5">
+                                <li>Inline styles</li>
+                                <li>ID selectors</li>
+                                <li>Class/attribute/pseudo-class selectors</li>
+                                <li>Element/pseudo-element selectors</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Best Practices</h3>
+                            <ul class="list-disc pl-5">
+                                <li>Use classes instead of IDs for styling</li>
+                                <li>Keep selectors simple</li>
+                                <li>Avoid !important</li>
+                                <li>Use semantic class names</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-css-blue hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 3: Box Model -->
+            <div class="slide" id="slide3">
+                <h2 class="text-2xl font-bold mb-4 text-css-blue">Box Model</h2>
+                <div class="mb-6">
+                    <p class="mb-4">Every element in CSS is a rectangular box with content, padding, border, and margin.</p>
+                    
+                    <div class="flex flex-col items-center mb-6">
+                        <div class="relative w-full max-w-md">
+                            <div class="border-2 border-gray-400 p-8 mb-4">
+                                <div class="border-2 border-gray-500 p-8">
+                                    <div class="border-2 border-dashed border-gray-600 p-8 bg-gray-100 dark:bg-gray-700 text-center">
+                                        Content
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-0 left-0 w-full h-full pointer-events-none">
+                                <div class="absolute top-0 left-0 w-full text-center -mt-6 text-sm">Margin</div>
+                                <div class="absolute top-8 left-0 w-full text-center -mt-6 text-sm">Border</div>
+                                <div class="absolute top-16 left-0 w-full text-center -mt-6 text-sm">Padding</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 overflow-x-auto">
+                        <pre class="code-block text-sm"><code>.box {
+    width: 200px;
+    height: 100px;
+    padding: 20px;
+    border: 5px solid black;
+    margin: 30px;
+    background-color: lightblue;
+}</code></pre>
+                    </div>
+
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                        <h3 class="font-semibold mb-2">Box-Sizing</h3>
+                        <p class="mb-2">By default, width/height only apply to content box. Use <code>box-sizing: border-box</code> to include padding and border in element's total width/height.</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm mb-1">content-box (default)</p>
+                                <div class="border p-2">
+                                    <div class="w-32 h-16 p-4 border-4 border-black bg-blue-200">
+                                        Total width: 32 + 8 + 8 = 48px
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-sm mb-1">border-box</p>
+                                <div class="border p-2">
+                                    <div class="w-32 h-16 p-4 border-4 border-black bg-green-200 box-border">
+                                        Total width: 32px (includes padding/border)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-css-blue hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 4: Flexbox -->
+            <div class="slide" id="slide4">
+                <h2 class="text-2xl font-bold mb-4 text-css-blue">Flexbox</h2>
+                <div class="mb-6">
+                    <p class="mb-4">Flexbox is a one-dimensional layout method for arranging items in rows or columns.</p>
+                    
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                        <h3 class="font-semibold mb-2">Flex Container Properties</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <pre class="code-block text-sm"><code>.container {
+    display: flex;
+    flex-direction: row | row-reverse 
+                 | column | column-reverse;
+    flex-wrap: nowrap | wrap | wrap-reverse;
+    justify-content: flex-start | flex-end 
+                   | center | space-between 
+                   | space-around | space-evenly;
+    align-items: stretch | flex-start 
+               | flex-end | center | baseline;
+}</code></pre>
+                            </div>
+                            <div>
+                                <pre class="code-block text-sm"><code>.container {
+    align-content: stretch | flex-start 
+                 | flex-end | center 
+                 | space-between | space-around;
+    gap: 10px; /* row-gap column-gap */
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                        <h3 class="font-semibold mb-2">Flex Items Properties</h3>
+                        <pre class="code-block text-sm"><code>.item {
+    order: 0; /* default */
+    flex-grow: 0; /* default */
+    flex-shrink: 1; /* default */
+    flex-basis: auto; /* default */
+    align-self: auto | flex-start 
+              | flex-end | center 
+              | baseline | stretch;
+}</code></pre>
+                    </div>
+
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                        <h3 class="font-semibold mb-2">Interactive Demo</h3>
+                        <div class="flex flex-wrap gap-4 mb-4">
+                            <button onclick="updateFlexDemo('direction', 'row')" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                Row
+                            </button>
+                            <button onclick="updateFlexDemo('direction', 'column')" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                Column
+                            </button>
+                            <button onclick="updateFlexDemo('justify', 'center')" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                Justify Center
+                            </button>
+                            <button onclick="updateFlexDemo('justify', 'space-between')" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                Space Between
+                            </button>
+                            <button onclick="updateFlexDemo('align', 'center')" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                Align Center
+                            </button>
+                            <button onclick="updateFlexDemo('wrap', 'wrap')" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                Wrap
+                            </button>
+                        </div>
+                        <div id="flexDemo" class="flex flex-row flex-nowrap justify-start items-stretch gap-4 p-4 bg-gray-200 dark:bg-gray-600 min-h-40">
+                            <div class="w-16 h-16 bg-css-blue text-white flex items-center justify-center">1</div>
+                            <div class="w-16 h-16 bg-css-blue text-white flex items-center justify-center">2</div>
+                            <div class="w-16 h-16 bg-css-blue text-white flex items-center justify-center">3</div>
+                            <div class="w-16 h-16 bg-css-blue text-white flex items-center justify-center">4</div>
+                            <div class="w-16 h-16 bg-css-blue text-white flex items-center justify-center">5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-css-blue hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 5: Grid -->
+            <div class="slide" id="slide5">
+                <h2 class="text-2xl font-bold mb-4 text-css-blue">CSS Grid</h2>
+                <div class="mb-6">
+                    <p class="mb-4">CSS Grid is a two-dimensional layout system for the web that lets you create complex responsive web designs.</p>
+                    
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                        <h3 class="font-semibold mb-2">Grid Container Properties</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <pre class="code-block text-sm"><code>.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100px 200px;
+    gap: 10px;
+    grid-template-areas: 
+        "header header header"
+        "sidebar main main";
+}</code></pre>
+                            </div>
+                            <div>
+                                <pre class="code-block text-sm"><code>.container {
+    justify-items: start | end | center | stretch;
+    align-items: start | end | center | stretch;
+    justify-content: start | end | center 
+                   | stretch | space-around 
+                   | space-between | space-evenly;
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                        <h3 class="font-semibold mb-2">Grid Items Properties</h3>
+                        <pre class="code-block text-sm"><code>.item {
+    grid-column: 1 / 3; /* start / end */
+    grid-row: 1 / 2;
+    grid-area: header; /* from template */
+    justify-self: start | end | center | stretch;
+    align-self: start | end | center | stretch;
+}</code></pre>
+                    </div>
+
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                        <h3 class="font-semibold mb-2">Interactive Demo</h3>
+                        <div class="flex flex-wrap gap-4 mb-4">
+                            <button onclick="updateGridDemo('template', '3cols')" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                3 Columns
+                            </button>
+                            <button onclick="updateGridDemo('template', '2rows')" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                2 Rows
+                            </button>
+                            <button onclick="updateGridDemo('justify', 'center')" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                Justify Center
+                            </button>
+                            <button onclick="updateGridDemo('align', 'center')" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                Align Center
+                            </button>
+                            <button onclick="updateGridDemo('gap', '20px')" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                Big Gap
+                            </button>
+                        </div>
+                        <div id="gridDemo" class="grid grid-cols-3 gap-4 p-4 bg-gray-200 dark:bg-gray-600 min-h-40">
+                            <div class="bg-css-blue text-white p-4 flex items-center justify-center">1</div>
+                            <div class="bg-css-blue text-white p-4 flex items-center justify-center">2</div>
+                            <div class="bg-css-blue text-white p-4 flex items-center justify-center">3</div>
+                            <div class="bg-css-blue text-white p-4 flex items-center justify-center">4</div>
+                            <div class="bg-css-blue text-white p-4 flex items-center justify-center">5</div>
+                            <div class="bg-css-blue text-white p-4 flex items-center justify-center">6</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-css-blue hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 6: Responsive Design -->
+            <div class="slide" id="slide6">
+                <h2 class="text-2xl font-bold mb-4 text-css-blue">Responsive Design</h2>
+                <div class="mb-6">
+                    <p class="mb-4">Responsive web design makes your web pages look good on all devices by using flexible layouts and media queries.</p>
+                    
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                        <h3 class="font-semibold mb-2">Media Queries</h3>
+                        <pre class="code-block text-sm"><code>/* Mobile-first approach */
+.container {
+    padding: 10px; /* Default for mobile */
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .container {
+        padding: 30px;
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                        <h3 class="font-semibold mb-2">Viewport Meta Tag</h3>
+                        <pre class="code-block text-sm"><code>&lt;meta name="viewport" 
+      content="width=device-width, 
+               initial-scale=1.0"&gt;</code></pre>
+                        <p class="mt-2">This tag tells browsers to use the device width as the viewport width and set initial zoom level to 1.</p>
+                    </div>
+
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4">
+                        <h3 class="font-semibold mb-2">Responsive Units</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <h4 class="font-medium mb-1">Relative Units</h4>
+                                <ul class="list-disc pl-5 text-sm">
+                                    <li><code>em</code> - Relative to font-size</li>
+                                    <li><code>rem</code> - Relative to root font-size</li>
+                                    <li><code>vw</code> - 1% of viewport width</li>
+                                    <li><code>vh</code> - 1% of viewport height</li>
+                                    <li><code>%</code> - Relative to parent</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-1">Flexible Layouts</h4>
+                                <ul class="list-disc pl-5 text-sm">
+                                    <li>Use <code>max-width: 100%</code> for images</li>
+                                    <li>Use <code>flex-wrap: wrap</code></li>
+                                    <li>Use CSS Grid with <code>fr</code> units</li>
+                                    <li>Use <code>minmax()</code> for grid tracks</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-1">Responsive Images</h4>
+                                <pre class="code-block text-sm"><code>&lt;img src="small.jpg" 
+     srcset="medium.jpg 1000w, 
+             large.jpg 2000w"
+     sizes="(max-width: 600px) 100vw, 
+            (max-width: 1200px) 50vw, 
+            33vw"&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-css-blue hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 7: Quiz -->
+            <div class="slide" id="slide7">
+                <h2 class="text-2xl font-bold mb-4 text-css-blue">Quick Quiz</h2>
+                <div class="mb-6">
+                    <div id="quizQuestion1" class="mb-8">
+                        <h3 class="text-lg font-semibold mb-4">1. Which CSS property controls the space between elements?</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                A) padding
+                            </button>
+                            <button onclick="checkAnswer(this, true)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                B) margin
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                C) border
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                D) spacing
+                            </button>
+                        </div>
+                        <div id="quizFeedback1" class="mt-3 hidden">
+                            <div class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 p-3 rounded-lg">
+                                <strong>Correct!</strong> Margin controls the space between elements, while padding controls space inside an element.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="quizQuestion2" class="mb-8">
+                        <h3 class="text-lg font-semibold mb-4">2. Which of these is NOT a valid CSS selector?</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                A) .class-name
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                B) #id-name
+                            </button>
+                            <button onclick="checkAnswer(this, true)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                C) $element-name
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                D) element-name
+                            </button>
+                        </div>
+                        <div id="quizFeedback2" class="mt-3 hidden">
+                            <div class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 p-3 rounded-lg">
+                                <strong>Correct!</strong> The $ symbol is not used in CSS selectors (it's used in jQuery and SASS).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="quizQuestion3" class="mb-8">
+                        <h3 class="text-lg font-semibold mb-4">3. What does this CSS rule do: <code>box-sizing: border-box;</code>?</h3>
+                        <div class="grid grid-cols-1 gap-3">
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                A) Adds a border around the box
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                B) Makes the box shadow appear inside the element
+                            </button>
+                            <button onclick="checkAnswer(this, true)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                C) Includes padding and border in element's width/height
+                            </button>
+                            <button onclick="checkAnswer(this, false)" class="question-option bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-3 rounded-lg">
+                                D) Makes the box responsive to screen size
+                            </button>
+                        </div>
+                        <div id="quizFeedback3" class="mt-3 hidden">
+                            <div class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 p-3 rounded-lg">
+                                <strong>Correct!</strong> border-box makes width/height include padding and border, which is often more intuitive.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-css-blue hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 8: Playground -->
+            <div class="slide" id="slide8">
+                <h2 class="text-2xl font-bold mb-4 text-css-blue">CSS Playground</h2>
+                <div class="mb-6">
+                    <p class="mb-4">Try writing your own CSS code below and see the results in real-time!</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-semibold mb-2">HTML</h3>
+                            <textarea id="playgroundHtml" class="w-full h-32 bg-gray-100 dark:bg-gray-700 p-4 rounded-lg font-mono text-sm" spellcheck="false"><div class="demo-box">Edit me!</div>
+<button class="demo-btn">Click me</button></textarea>
+                            
+                            <h3 class="font-semibold mb-2 mt-4">CSS</h3>
+                            <textarea id="playgroundCss" class="w-full h-32 bg-gray-100 dark:bg-gray-700 p-4 rounded-lg font-mono text-sm" spellcheck="false">.demo-box {
+    width: 150px;
+    height: 150px;
+    background-color: #2965F1;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.demo-btn {
+    padding: 8px 16px;
+    background-color: #2965F1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+.demo-btn:hover {
+    background-color: #1a4fbf;
+}</textarea>
+                            <button onclick="runCssCode()" class="mt-3 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition w-full">
+                                <i class="fas fa-play mr-2"></i> Run Code
+                            </button>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Output</h3>
+                            <div id="playgroundOutput" class="playground-output bg-white dark:bg-gray-900 p-4 rounded-lg font-mono text-sm overflow-auto"></div>
+                            <div class="mt-3">
+                                <h3 class="font-semibold mb-2">Try these examples:</h3>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button onclick="loadCssExample(1)" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                        Flexbox Layout
+                                    </button>
+                                    <button onclick="loadCssExample(2)" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                        Grid Layout
+                                    </button>
+                                    <button onclick="loadCssExample(3)" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                        Animation
+                                    </button>
+                                    <button onclick="loadCssExample(4)" class="text-xs bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded">
+                                        Transform
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="prevSlide()" class="bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextSlide()" class="bg-css-blue hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 9: Final Slide -->
+            <div class="slide" id="slide9">
+                <h2 class="text-2xl font-bold mb-4 text-css-blue">Congratulations!</h2>
+                <div class="mb-6 text-center">
+                    <div class="bg-green-100 dark:bg-green-900 p-6 rounded-lg mb-6">
+                        <i class="fas fa-trophy text-5xl text-yellow-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">You've completed the CSS Fundamentals Course!</h3>
+                        <p class="mb-4">You've learned about selectors, box model, flexbox, grid, responsive design, and more.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Next Steps</h3>
+                            <ul class="list-disc pl-5">
+                                <li>CSS Animations</li>
+                                <li>CSS Variables</li>
+                                <li>SASS/SCSS</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Resources</h3>
+                            <ul class="list-disc pl-5">
+                                <li>MDN CSS Docs</li>
+                                <li>CSS-Tricks</li>
+                                <li>Flexbox Froggy</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">Community</h3>
+                            <ul class="list-disc pl-5">
+                                <li>CSS Discord</li>
+                                <li>Stack Overflow</li>
+                                <li>CodePen Challenges</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <p class="mb-6">Keep styling and have fun with CSS!</p>
+                    
+                    <button id="leaveRoomBtn" class="bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-6 rounded-lg transition">
+                        <i class="fas fa-door-open mr-2"></i> <a href="index.html">Leave room</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+        });
+
+        // Set initial theme based on preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+
+        // Slide navigation
+        let currentSlide = 1;
+        const totalSlides = 9;
+
+        function updateProgress() {
+            const progressPercent = Math.round((currentSlide / totalSlides) * 100);
+            document.getElementById('progressPercent').textContent = `${progressPercent}%`;
+            document.getElementById('progressBar').style.width = `${progressPercent}%`;
+            document.getElementById('progressText').textContent = `Lesson ${currentSlide} of ${totalSlides}`;
+        }
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => slide.classList.remove('active'));
+            document.getElementById(`slide${n}`).classList.add('active');
+            currentSlide = n;
+            updateProgress();
+
+            // Scroll to top when changing slides
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Quiz functionality
+        function checkAnswer(button, isCorrect) {
+            const questionDiv = button.closest('[id^="quizQuestion"]');
+            const feedbackId = questionDiv.id.replace("Question", "Feedback");
+            const feedbackDiv = document.getElementById(feedbackId);
+
+            // Reset all buttons in this question
+            const allButtons = questionDiv.querySelectorAll('.question-option');
+            allButtons.forEach(btn => {
+                btn.classList.remove('correct', 'incorrect');
+            });
+
+            // Mark the clicked button
+            if (isCorrect) {
+                button.classList.add('correct');
+                feedbackDiv.classList.remove('hidden');
+            } else {
+                button.classList.add('incorrect');
+
+                // Find and show the correct answer
+                const correctButton = [...allButtons].find(btn => btn.classList.contains('question-option') && btn !== button);
+                if (correctButton) {
+                    setTimeout(() => {
+                        correctButton.classList.add('correct');
+                        feedbackDiv.classList.remove('hidden');
+                    }, 500);
+                }
+            }
+        }
+
+        // Flexbox demo functionality
+        function updateFlexDemo(property, value) {
+            const flexDemo = document.getElementById('flexDemo');
+            
+            switch(property) {
+                case 'direction':
+                    flexDemo.className = flexDemo.className.replace(/flex-row|flex-row-reverse|flex-col|flex-col-reverse/, 'flex-' + value);
+                    break;
+                case 'justify':
+                    flexDemo.className = flexDemo.className.replace(/justify-start|justify-end|justify-center|justify-between|justify-around|justify-evenly/, 'justify-' + value);
+                    break;
+                case 'align':
+                    flexDemo.className = flexDemo.className.replace(/items-start|items-end|items-center|items-baseline|items-stretch/, 'items-' + value);
+                    break;
+                case 'wrap':
+                    flexDemo.className = flexDemo.className.replace(/flex-nowrap|flex-wrap|flex-wrap-reverse/, 'flex-' + value);
+                    break;
+            }
+        }
+
+        // Grid demo functionality
+        function updateGridDemo(property, value) {
+            const gridDemo = document.getElementById('gridDemo');
+            
+            switch(property) {
+                case 'template':
+                    if (value === '3cols') {
+                        gridDemo.className = gridDemo.className.replace(/grid-cols-\d+/, 'grid-cols-3');
+                    } else if (value === '2rows') {
+                        gridDemo.className = gridDemo.className.replace(/grid-cols-\d+/, 'grid-cols-2');
+                    }
+                    break;
+                case 'justify':
+                    gridDemo.className = gridDemo.className.replace(/justify-start|justify-end|justify-center|justify-between|justify-around|justify-evenly/, 'justify-' + value);
+                    break;
+                case 'align':
+                    gridDemo.className = gridDemo.className.replace(/items-start|items-end|items-center|items-baseline|items-stretch/, 'items-' + value);
+                    break;
+                case 'gap':
+                    gridDemo.style.gap = value;
+                    break;
+            }
+        }
+
+        // CSS Playground functionality
+        function runCssCode() {
+            const html = document.getElementById('playgroundHtml').value;
+            const css = document.getElementById('playgroundCss').value;
+            const outputDiv = document.getElementById('playgroundOutput');
+            
+            outputDiv.innerHTML = `
+                <style>${css}</style>
+                ${html}
+            `;
+        }
+
+        function loadCssExample(exampleNum) {
+            const examples = [
+                {
+                    html: `<div class="flex-container">
+    <div class="flex-item">1</div>
+    <div class="flex-item">2</div>
+    <div class="flex-item">3</div>
+</div>`,
+                    css: `.flex-container {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.flex-item {
+    flex: 1;
+    padding: 20px;
+    background-color: #2965F1;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+}`
+                },
+                {
+                    html: `<div class="grid-container">
+    <div class="grid-item header">Header</div>
+    <div class="grid-item sidebar">Sidebar</div>
+    <div class="grid-item main">Main Content</div>
+    <div class="grid-item footer">Footer</div>
+</div>`,
+                    css: `.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 80px 1fr 80px;
+    gap: 10px;
+    height: 300px;
+}
+
+.header {
+    grid-column: 1 / -1;
+    background-color: #2965F1;
+}
+
+.sidebar {
+    background-color: #1a4fbf;
+}
+
+.main {
+    background-color: #0d3a8a;
+}
+
+.footer {
+    grid-column: 1 / -1;
+    background-color: #2965F1;
+}
+
+.grid-item {
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+}`
+                },
+                {
+                    html: `<div class="animated-box">Hover me!</div>`,
+                    css: `.animated-box {
+    width: 100px;
+    height: 100px;
+    background-color: #2965F1;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.animated-box:hover {
+    transform: scale(1.2);
+    background-color: #1a4fbf;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}`
+                },
+                {
+                    html: `<div class="transform-box">Hover me!</div>`,
+                    css: `.transform-box {
+    width: 100px;
+    height: 100px;
+    background-color: #2965F1;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    border-radius: 8px;
+    transition: all 0.5s ease;
+}
+
+.transform-box:hover {
+    transform: rotate(45deg) scale(1.2);
+    background-color: #1a4fbf;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}`
+                }
+            ];
+
+            document.getElementById('playgroundHtml').value = examples[exampleNum - 1].html;
+            document.getElementById('playgroundCss').value = examples[exampleNum - 1].css;
+            runCssCode();
+        }
+
+        // Leave room button
+        document.getElementById('leaveRoomBtn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to leave the course?')) {
+                alert('Thank you for taking the CSS course! Come back anytime to continue learning.');
+                // In a real app, you might redirect to another page
+                // window.location.href = '/';
+            }
+        });
+
+        // Initialize playground
+        runCssCode();
+        updateProgress();
+    </script>
+</body>
+</html>
+
+
+
+
+

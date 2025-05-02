@@ -1,0 +1,103 @@
+ADVANCED PAGE 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programming Options</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<style>
+    body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+}
+
+.options {
+  display: flex;
+  gap: 20px;
+  margin-top: 40px;
+  justify-content: center;
+}
+
+.option {
+  padding: 20px 40px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.4s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.option:hover {
+  background: linear-gradient(135deg, #2a2a2a, #000000);
+}
+
+.option-py {
+    display: flex;
+  gap: 20px;
+  margin-top: 40px;
+  justify-content: center;
+  padding: 20px 40px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.4s ease;
+  background: linear-gradient(darkblue, lightblue );
+  
+}
+
+.option-js {
+    display: flex;
+  gap: 20px;
+  margin-top: 40px;
+  justify-content: center;
+  padding: 20px 40px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.4s ease;
+  background: linear-gradient(orange, white );
+}
+
+.option-css {
+    display: flex;
+  gap: 20px;
+  margin-top: 40px;
+  justify-content: center;
+  padding: 20px 40px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.4s ease;
+  background: linear-gradient(green ,  white);
+}
+</style>
+
+   
+
+<div class="container">
+    <h1>Choose a Programming Path</h1>
+    <div class="options">
+      <div class="option-py"><a href="ad-py.html">Python</a></div>
+      <div class="option-js"><a href="ad-js.html">JavaScript</a></div>
+      <div class="option-css"><a href="ad-css.html">CSS</a></div>
+    </div>
+  </div>
+
+
+</body>
+</html>
